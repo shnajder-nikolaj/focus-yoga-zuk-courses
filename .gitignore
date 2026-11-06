@@ -1,0 +1,27 @@
+# Intermediate course data and build reports; keep build_courses.py in Git.
+/artifacts/**/*.json
+/artifacts/**/report.md
+
+# Python bytecode and local virtual environments.
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local environment settings; example files may be committed.
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Temporary files, logs, and editor backups.
+*.tmp
+*.log
+*.swp
+*.swo
+*~
+
+# Operating system metadata.
+.DS_Store
+Thumbs.db
+Desktop.ini
