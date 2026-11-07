@@ -760,6 +760,51 @@
 * Чем History API отличается от hash routing?
 * Как работают Web Workers и почему они не заменяют асинхронность ввода-вывода?
 
+# Networking: IP, подсети, DNS, маршрутизация, NAT и Firewall
+
+* Как IP address, prefix и subnet задают принадлежность узла сети в IPv4 и IPv6?
+* Как longest prefix match и default route выбирают маршрут пакета?
+* Как next hop, ARP и Neighbor Discovery связывают IP-маршрут с локальной доставкой?
+* Как private, public, loopback и link-local addresses различаются по области использования?
+* Как SNAT, DNAT и port mapping меняют адреса и влияют на обратный путь?
+* Как stateful firewall и connection tracking отличаются от простого фильтра packets?
+* Как DNS recursion, authoritative servers и caching участвуют в разрешении серверного имени?
+* Как TTL, negative caching и split-horizon DNS влияют на переключение сервиса?
+* Как DNS search domains, hosts file и resolver configuration создают неожиданные адреса?
+* Как IPv4/IPv6 dual stack и выбор адреса клиентом влияют на доступность?
+* Как MTU, fragmentation и Path MTU Discovery объясняют частично работающую сеть?
+* Как проверить путь от DNS и route до NAT и firewall без вывода по одному ping?
+
+# Networking: Nginx, Reverse Proxy, Load Balancers, CDN и WAF
+
+* Как reverse proxy отличается от forward proxy и L4 load balancer?
+* Как Nginx выбирает server block и location для входящего запроса?
+* Как proxy_pass, URI rewrite и trailing slash влияют на путь backend-запроса?
+* Как upstream balancing, keepalive и connection pools влияют на распределение нагрузки?
+* Как connect, read и send timeouts proxy соотносятся с общим deadline запроса?
+* Как request и response buffering влияют на streaming, память и временные файлы?
+* Когда proxy retry безопасен и как он может повторить уже выполненную операцию?
+* Как trusted proxy chain и forwarded headers защищают определение client IP и исходной схемы?
+* Как CDN cache key, Vary, cookies и authorization влияют на корректность кэширования?
+* Как invalidation, versioned assets и stale serving помогают обновлять CDN без несогласованных версий?
+* Как WAF, rate limiting и origin protection дополняют безопасность приложения?
+* Как access logs, upstream timings и health checks помогают диагностировать 502, 503 и 504?
+
+# Networking: TCP, UDP, TLS, HTTP/2, HTTP/3 и WebSockets на сервере
+
+* Какие гарантии TCP даёт байтовому потоку и почему приложение должно задавать границы сообщений?
+* Как UDP, packet loss и congestion control влияют на проектирование серверного протокола?
+* Как TCP backlog, accept queue, keepalive и half-close связаны с жизненным циклом соединения?
+* Как TLS handshake, certificate chain и hostname verification устанавливают доверие к серверу?
+* Чем SNI, ALPN и HTTP Host различаются при выборе виртуального сервера и протокола?
+* Как TLS termination, mTLS и повторное шифрование до upstream задают разные проверки identity?
+* Как HTTP/2 multiplexing и flow control взаимодействуют с TCP head-of-line blocking?
+* Как QUIC и HTTP/3 переносят multiplexing на UDP и меняют поведение при потере пакетов?
+* Почему TLS 1.3 и QUIC 0-RTT требуют учитывать replay для изменяющих запросов?
+* Как WebSocket handshake и framing отличаются от обычного HTTP request/response?
+* Как WebSocket backpressure, heartbeat и connection limits защищают долгоживущий сервер?
+* Как согласовать application deadlines, connection draining и отмену работы при обрыве клиента?
+
 # Network: DNS, TCP, UDP и TLS
 
 * Как браузер находит IP-адрес сервера по доменному имени?
@@ -907,6 +952,383 @@
 * Как безопасно обрабатывать OAuth callback URL?
 * Чем SRI (`integrity`) полезен при загрузке внешних скриптов?
 * Как защищать данные от утечки через URL, логи и analytics?
+
+# Security: DevSecOps, SAST, DAST, SCA и безопасность инфраструктуры
+
+* Как встроить security requirements и проверки в жизненный цикл разработки сервиса?
+* Чем SAST, DAST, SCA и IaC scanning различаются по входным данным и ограничениям?
+* Как настроить SAST для поиска опасных data flows без чрезмерного числа ложных срабатываний?
+* Как организовать DAST аутентифицированного API в изолированном тестовом окружении?
+* Как учитывать транзитивные зависимости, reachability и контекст эксплуатации при SCA?
+* Как границы доверия CI runners и pull requests влияют на безопасность pipeline?
+* Как IaC policies, cloud posture checks и drift detection дополняют друг друга?
+* Как проверять безопасность container image и runtime configuration перед релизом?
+* Как построить security gates и ограниченные исключения на основе риска уязвимости?
+* Как измерять результативность DevSecOps и проверять устранение найденных уязвимостей?
+
+# Security: OWASP API Security Top 10 и Threat Modeling
+
+* Какие риски выделяет OWASP API Security Top 10 2023 и как использовать этот список?
+* Чем BOLA, BFLA и Broken Object Property Level Authorization различаются на уровне API?
+* Как Broken Authentication проявляется в API с корректно работающей проверкой токенов?
+* Как ограничивать Unrestricted Resource Consumption в API с batch и GraphQL-запросами?
+* Как защищать sensitive business flows от автоматизированного злоупотребления?
+* Как Security Misconfiguration и Improper Inventory Management связаны с жизненным циклом API?
+* Почему Unsafe Consumption of APIs требует проверки данных даже от доверенного поставщика?
+* Как описать assets, data flows и trust boundaries для threat model backend-сервиса?
+* Как STRIDE и attack trees помогают приоритизировать угрозы конкретному API?
+* Как превратить threat model в проверяемые меры защиты и поддерживать её при изменениях?
+
+# Security: SQL Injection, NoSQL Injection, SSRF, RCE и другие серверные уязвимости
+
+* Почему parameterized queries защищают от SQL Injection и где всё ещё нужны allowlists?
+* Как предотвратить NoSQL Injection при построении фильтров из входного JSON?
+* Как защищать серверные HTTP-запросы от SSRF с учётом DNS, redirects и egress?
+* Почему передача пользовательских данных в shell создаёт Command Injection и риск RCE?
+* Как отличить безопасный template rendering от Server-Side Template Injection?
+* Как небезопасная десериализация создаёт выполнение кода и как уменьшить этот риск?
+* Как предотвращать path traversal при работе с файлами и распаковке архивов?
+* Как проверять uploads и обработчики медиа, чтобы не допустить серверной компрометации?
+* Как prototype pollution влияет на Node.js backend и как защищать операции merge?
+* Как подтвердить исправление серверной уязвимости и исключить похожие обходные пути?
+
+# Security: авторизация - RBAC, ABAC, ACL и управление доступом
+
+* Как PEP, PDP и источники атрибутов разделяют исполнение authorization policy?
+* Как проектировать RBAC permissions, role hierarchy и separation of duties без role explosion?
+* Как ABAC использует атрибуты субъекта, ресурса, действия и окружения из доверенных источников?
+* Когда ACL и relationship-based access control удобнее назначения глобальных ролей?
+* Как tenant scoping и object-level checks защищают списки, batch operations и экспорты?
+* Как field-level authorization ограничивает чтение и изменение свойств ресурса?
+* Как передавать delegated identity между сервисами без confused deputy?
+* Как кэшировать authorization decisions с учётом изменения прав и отзыва доступа?
+* Как TOCTOU между проверкой доступа и изменением данных влияет на авторизацию?
+* Как построить матрицу authorization tests для ролей, tenants и способов доступа?
+
+# Security: аутентификация - Sessions, JWT, OAuth 2.0 и OpenID Connect
+
+* Как backend управляет созданием, обновлением идентификатора и сроками серверной сессии?
+* Как организовать проверку credentials с защитой от enumeration и credential stuffing?
+* Какие проверки JWT обязан выполнить resource server кроме проверки подписи?
+* Как безопасно обновлять signing keys и JWKS cache при проверке токенов?
+* Как роли OAuth 2.0 определяют назначение access token, authorization code и client credentials?
+* Как backend связывает Authorization Code, PKCE, redirect URI и OAuth transaction?
+* Как валидировать OIDC ID Token и связывать внешний subject с локальной учётной записью?
+* Как хранить refresh token families и атомарно обнаруживать повторное использование токена?
+* Как service-to-service authentication использует workload identity и audience-restricted tokens?
+* Как MFA, passkeys и account recovery меняют границы доверия backend-аутентификации?
+
+# Security: шифрование, хеширование, управление ключами и Secrets
+
+* Как выбирать между encryption, hashing, MAC и digital signature по требуемому свойству?
+* Как salt, pepper и параметры password hashing влияют на хранение и обновление паролей?
+* Как AEAD использует nonce, authentication tag и associated data для защиты записи?
+* Как envelope encryption разделяет DEK и KEK и ограничивает доступ к plaintext?
+* Как CSPRNG, длина токена и безопасное сравнение влияют на криптографические операции?
+* Как организовать жизненный цикл ключа от генерации до ротации, отзыва и уничтожения?
+* Как TLS termination и mTLS определяют защищённый участок и identity соединения?
+* Как доставлять secrets приложению и предотвращать их утечку через логи и диагностику?
+* Когда для fingerprint токена нужен обычный hash, а когда HMAC с отдельным ключом?
+* Как versioned ciphertext и crypto agility помогают безопасно менять алгоритмы и ключи?
+
+# Architecture: C4 Model, ADR, технические решения и эволюция архитектуры
+
+* Какие уровни C4 нужны для описания backend-системы разным аудиториям?
+* Чем container в C4 отличается от Docker-контейнера и узла развёртывания?
+* Как отразить синхронные вызовы, брокер и базы данных на C4-диаграмме?
+* Когда C4 нужно дополнить dynamic diagram и deployment diagram?
+* Какие сведения должны входить в ADR о выборе базы данных или брокера?
+* Как сравнивать архитектурные альтернативы через измеримые требования качества?
+* Как отличить обратимое архитектурное решение от решения с высокой стоимостью изменения?
+* Как проверять архитектурную гипотезу с помощью spike и прототипа?
+* Как поддерживать C4 и ADR в актуальном состоянии при изменениях системы?
+* Как организовать постепенную замену компонента с помощью Strangler Fig?
+* Что такое fitness functions и как они защищают архитектурные ограничения?
+* Как определить успешность архитектурной миграции и условия её отката?
+
+# Architecture: DDD, Bounded Context, Aggregates и Domain Events
+
+* Чем стратегический DDD отличается от тактического и когда каждый из них полезен?
+* Как ubiquitous language помогает обнаруживать границы bounded context?
+* Чем bounded context отличается от микросервиса, модуля и схемы базы данных?
+* Как context map описывает отношения между доменными контекстами?
+* Как различать entity и value object в доменной модели?
+* Как выбрать границу aggregate и какие инварианты он должен защищать?
+* Почему изменения разных aggregates обычно согласуют вне одной доменной транзакции?
+* Чем domain service отличается от application service и инфраструктурного сервиса?
+* Как проектировать repository для aggregate root без утечки деталей ORM?
+* Чем domain event отличается от integration event?
+* Как согласовать сохранение aggregate и публикацию его integration event?
+* Как постепенно внедрять DDD в существующее приложение и избегать избыточной модели?
+
+# Architecture: Event-Driven Architecture, CQRS и Event Sourcing
+
+* Чем событие отличается от команды и уведомления в межсервисном взаимодействии?
+* Какие связи ослабляет Event-Driven Architecture и какие новые зависимости создаёт?
+* Что именно разделяет CQRS и требует ли он отдельных баз данных?
+* Когда Event Sourcing оправдан по сравнению с хранением текущего состояния?
+* Как восстановить состояние aggregate из event stream и snapshot?
+* Как optimistic concurrency предотвращает конфликт записи в event stream?
+* Как строить проекции и объяснять пользователю их eventual consistency?
+* Как обеспечить идемпотентность проекции при повторной доставке событий?
+* Как изменять схемы событий и использовать upcasting в Event Sourcing?
+* Как безопасно выполнять replay событий без повторных внешних эффектов?
+* Как перестроить проекцию без остановки чтения и потери новых событий?
+* Как решать проблему чувствительных данных и удаления информации из журнала событий?
+
+# Architecture: Layered, Clean, Hexagonal, Onion и MVC
+
+* Как layered architecture распределяет обязанности backend-приложения?
+* Чем логический слой отличается от физического tier развёртывания?
+* Как правило зависимостей Clean Architecture применяется к backend use case?
+* Как Hexagonal Architecture разделяет входные и выходные порты backend-сервиса?
+* Как Onion Architecture организует зависимости вокруг доменной модели?
+* Как MVC соотносится со слоями backend-приложения?
+* Как отделить HTTP DTO, доменную модель и ORM-модель без лишнего дублирования?
+* Где размещать бизнес-валидацию, проверку прав и обработку ошибок?
+* Где определять границу транзакции и как передавать её нескольким repository?
+* Как composition root связывает use cases и инфраструктурные адаптеры?
+* Как тестировать бизнес-сценарий отдельно от HTTP, брокера и базы данных?
+* Когда достаточно простой layered architecture и как избежать церемониальных абстракций?
+
+# Architecture: Saga Pattern, распределённые бизнес-процессы и согласованность
+
+* Какую проблему решает Saga и чем она отличается от распределённой ACID-транзакции?
+* Чем orchestration saga отличается от choreography saga?
+* Как спроектировать шаги и состояния saga оформления заказа?
+* Почему компенсация не равна rollback и как компенсировать необратимое действие?
+* Как сделать шаги и компенсации saga идемпотентными?
+* Что делать, если участник saga выполнил действие, но ответ потерялся?
+* Как durable state, outbox и inbox помогают saga переживать сбои?
+* Как обрабатывать timeout, временные ошибки и окончательный бизнес-отказ в saga?
+* Как saga защищает бизнес-инварианты при отсутствии глобальной изоляции?
+* Как обрабатывать дублирующиеся, запоздавшие и переставленные сообщения saga?
+* Как наблюдать, тестировать и восстанавливать зависшие saga?
+* Когда вместо saga стоит изменить границы сервисов или выбрать другой механизм согласования?
+
+# Architecture: SOLID, GRASP, Repository, Unit of Work и другие паттерны
+
+* Как применять Single Responsibility Principle к backend-модулю и как распознать лишнее дробление?
+* Как Open/Closed Principle помогает добавлять бизнес-правила без универсальной системы плагинов?
+* Что означает Liskov Substitution Principle для контракта repository или внешнего клиента?
+* Как Interface Segregation Principle влияет на интерфейсы backend-сервисов?
+* Чем Dependency Inversion Principle отличается от Dependency Injection на backend?
+* Как GRASP Information Expert и Creator помогают распределять доменные обязанности?
+* Как GRASP Controller, High Cohesion и Low Coupling влияют на обработку бизнес-сценария?
+* Чем Repository отличается от DAO и в каких случаях обёртка над ORM избыточна?
+* Как Unit of Work отслеживает изменения и координирует запись в базу данных?
+* Как Strategy, Factory и Adapter решают разные задачи интеграции платёжных провайдеров?
+* Когда Decorator и Chain of Responsibility полезны в backend-конвейере?
+* Как распознать чрезмерное применение паттернов и оценить пользу новой абстракции?
+
+# Architecture: межсервисная коммуникация, API Gateway, BFF и Service Discovery
+
+* Как выбирать синхронный вызов или асинхронное сообщение между сервисами?
+* Какие компромиссы между REST, gRPC и messaging важны для внутренних API?
+* Как разделить политики API Gateway и бизнес-логику внутренних сервисов?
+* Как определить границы нескольких BFF для web, mobile и партнёрского API?
+* Чем client-side service discovery отличается от server-side discovery?
+* Как DNS, реестр сервисов и health checks участвуют в поиске экземпляра сервиса?
+* Чем service mesh отличается от API Gateway и когда его сложность оправдана?
+* Как передавать identity и проверять права при вызовах между сервисами?
+* Как согласовать deadline, timeout и retry budget по цепочке сервисных вызовов?
+* Как эволюционировать межсервисный контракт без одновременного релиза всех участников?
+* Как передавать trace context и диагностировать частичные отказы между сервисами?
+* Как предотвращать chatty communication и каскадные отказы при агрегации данных?
+
+# Architecture: монолит, модульный монолит, микросервисы и архитектурные компромиссы
+
+* Чем монолит, модульный монолит и микросервисы отличаются по границам изменения и развёртывания?
+* Как обеспечить границы модулей в модульном монолите?
+* Как организовать владение данными между модулями одного монолита?
+* Какие условия делают независимый деплой микросервиса реальным?
+* Почему горизонтальное масштабирование не требует обязательного перехода на микросервисы?
+* Что такое распределённый монолит и как обнаружить его признаки?
+* Как выбирать границы сервисов с учётом бизнес-возможностей и структуры команд?
+* Какие дополнительные расходы появляются при переходе к микросервисам?
+* Как общие библиотеки могут нарушить независимость микросервисов?
+* Как выбрать первый модуль для выделения из монолита в сервис?
+* Как разделять общую базу данных при выделении микросервисов?
+* Когда объединение микросервисов обратно в модульный монолит улучшает систему?
+
+# Architecture: отказоустойчивость - Retry, Timeout, Circuit Breaker и Bulkhead
+
+* Чем connect timeout, read timeout и общий deadline ограничивают сетевую операцию?
+* Как выбирать timeout по распределению задержек и допустимой доле ложных срабатываний?
+* Какие ошибки можно повторять и почему timeout не доказывает отсутствие результата?
+* Как работают exponential backoff и jitter при повторных запросах?
+* Как ограничить усиление нагрузки из-за retries на нескольких уровнях системы?
+* Как Circuit Breaker переходит между closed, open и half-open?
+* Какие ошибки и медленные вызовы следует учитывать в Circuit Breaker?
+* Как реализовать Bulkhead в асинхронном backend без отдельных пулов потоков?
+* Почему ограничение очереди и backpressure нужны вместе с timeout?
+* Как порядок Retry, Circuit Breaker и Bulkhead меняет поведение вызова?
+* Как проектировать fallback без скрытого нарушения бизнес-правил?
+* Как проверять политики отказоустойчивости с помощью управляемых сбоев?
+
+# Distributed Systems: CAP, PACELC и модели согласованности
+
+* Какие определения consistency, availability и partition использует теорема CAP?
+* Почему CAP не означает свободный выбор любых двух свойств при нормальной работе сети?
+* Как PACELC описывает компромисс между latency и consistency без сетевого разделения?
+* Чем linearizability отличается от sequential consistency?
+* Как causal consistency сохраняет зависимости между операциями и допускает конкурентные события?
+* Что гарантирует eventual consistency и каких ограничений на устаревание она не задаёт?
+* Как read-your-writes, monotonic reads и consistent prefix влияют на пользовательский опыт?
+* Чем linearizability отдельной операции отличается от serializability транзакций?
+* Почему условие R + W > N само по себе не доказывает linearizability?
+* Как выбирать модель согласованности отдельно для денежных операций, профиля и счётчика просмотров?
+* Как bounded staleness и чтение по версии помогают формализовать допустимое отставание?
+* Как проверять обещанные гарантии согласованности по истории конкурентных операций и сбоям?
+
+# Distributed Systems: Consistent Hashing, распределение данных и координация
+
+* Почему hash(key) modulo N перемещает много ключей при изменении числа узлов?
+* Как кольцо consistent hashing определяет владельца ключа и уменьшает объём перемещения?
+* Как virtual nodes и веса узлов влияют на баланс распределения?
+* Чем rendezvous hashing отличается от кольца consistent hashing?
+* Как размещать реплики с учётом зон доступности и независимых failure domains?
+* Почему равномерное распределение ключей не устраняет hot keys и перекос нагрузки?
+* Как membership, gossip и failure detectors определяют состав кластера при неполной информации?
+* Как перенести диапазон ключей между узлами, сохранив изменения во время копирования?
+* Как версии routing metadata и epochs защищают от запросов к устаревшему владельцу?
+* Почему distributed lock с TTL не исключает работу старого владельца после паузы?
+* Как fencing tokens защищают общий ресурс от просроченного владельца блокировки?
+* Когда достаточно детерминированного размещения, а когда нужна согласованная координация?
+
+# Distributed Systems: распределённые транзакции, часы и порядок событий
+
+* Как atomic commit отличается от consensus и изоляции распределённых транзакций?
+* Как prepare и commit фазы Two-Phase Commit координируют участников транзакции?
+* Почему Two-Phase Commit может блокироваться и как журналирование помогает восстановлению?
+* Какие ограничения сети и отказов мешают считать Three-Phase Commit универсальным решением?
+* Как выбирать между 2PC, Saga и локальной транзакцией с Outbox для бизнес-процесса?
+* Как сетевые задержки, clock skew и коррекция NTP влияют на физические часы?
+* Когда использовать monotonic clock вместо wall clock для измерения времени?
+* Как отношение happens-before задаёт причинный порядок событий?
+* Как Lamport clocks упорядочивают события и почему не позволяют доказать причинность по одному сравнению?
+* Как vector clocks обнаруживают причинную зависимость и конкурентные версии?
+* Как Hybrid Logical Clocks объединяют физическое время с логическим порядком?
+* Как отличать порядок доставки, причинный порядок и общий порядок при обработке событий?
+
+# Distributed Systems: репликация, кворумы, Consensus, Raft и Paxos
+
+* Чем репликация данных отличается от consensus и state machine replication?
+* Как single-leader, multi-leader и leaderless replication различаются при записи и отказах?
+* Как majority quorum определяет допустимое число отказов и почему важен состав voting members?
+* Как Raft использует terms, RequestVote и election timeout при выборе лидера?
+* Как AppendEntries и проверка предыдущей записи восстанавливают согласованный Raft log?
+* Когда запись Raft считается committed и почему недостаточно просто посчитать копии старой записи?
+* Как ограничения голосования и Leader Completeness предотвращают потерю committed entries?
+* Как безопасно менять membership Raft-кластера без двух независимых большинства?
+* Как snapshots и log compaction ускоряют восстановление отстающего участника?
+* Как лидер Raft подтверждает право на linearizable read после сетевого разделения?
+* Как роли proposer, acceptor и learner работают в Paxos и что меняет Multi-Paxos?
+* Что FLP говорит о завершении consensus и как практические протоколы обеспечивают прогресс?
+
+# System Design: High Availability, геораспределение, CDN и Edge
+
+* Как связать требования High Availability с пользовательскими сценариями и допустимой деградацией?
+* Как построить карту зональных, региональных и глобальных зависимостей HA-системы?
+* Как выбрать home region tenant и разместить write path в геораспределённом сервисе?
+* Как межрегиональная репликация и quorum влияют на latency и поведение при partition?
+* Как DNS routing, Anycast и global load balancing переключают пользовательский трафик?
+* Как capacity reserve и независимость от control plane влияют на готовность к потере региона?
+* Как спроектировать CDN cache key и отделить public content от private responses?
+* Как TTL, purge, versioned URLs и origin shielding влияют на доступность через CDN?
+* Какие state, consistency и security ограничения возникают при выполнении логики на Edge?
+* Как проверить HA-архитектуру под нагрузкой при отказе региона, CDN или общей зависимости?
+
+# System Design: вертикальное и горизонтальное масштабирование, Load Balancing
+
+* Как выбрать между scale-up и scale-out по профилю нагрузки и ограничениям сервиса?
+* Какие виды состояния мешают горизонтальному масштабированию application tier?
+* Как определить единицу масштабирования и разделить независимо растущие компоненты?
+* Как L4 и L7 load balancing различаются по управлению соединениями и запросами?
+* Как round robin, least connections, least requests и consistent hashing распределяют нагрузку?
+* Как keep-alive, HTTP/2 и WebSockets влияют на равномерность балансировки?
+* Как health checks, connection draining и slow start обеспечивают безопасное изменение backend pool?
+* Как autoscaling signal, stabilization window и startup time влияют на устойчивость scale-out?
+* Как при масштабировании application tier учитывать database capacity, pools и downstream limits?
+* Как проверить эффективность масштабирования и обнаружить serial bottleneck или hot partition?
+
+# System Design: оценка RPS, QPS, Latency, Throughput и объёмов данных
+
+* Как перейти от DAU и пользовательских сценариев к среднему и пиковому RPS?
+* Как read/write ratio, fan-out и retries превращают внешний RPS во внутренний QPS?
+* Как оценить network throughput по частоте операций и распределению payload sizes?
+* Как рассчитать объём хранения с учётом retention, indexes, replicas и backups?
+* Как составить latency budget из последовательных, параллельных и асинхронных этапов?
+* Почему p99 всей операции нельзя получить сложением или усреднением p99 компонентов?
+* Как оценивать concurrent requests и connections при заданной интенсивности и времени обслуживания?
+* Как размер и длительность burst определяют запас ёмкости и максимальный backlog?
+* Как working set, cache hit ratio и key distribution меняют оценку ресурсов?
+* Как проверять capacity estimates через допущения, sensitivity analysis и измерения?
+
+# System Design: проектирование URL Shortener, Key-Value Store и Rate Limiter
+
+* Как определить API, модель данных и SLA операций создания и разрешения короткой ссылки?
+* Как выбирать короткий код между random generation, sequence и hash исходного URL?
+* Как кэширование, HTTP redirect status и изменение destination взаимодействуют в URL Shortener?
+* Как защищать URL Shortener от abuse и собирать аналитику без задержки redirect?
+* Как задать GET, PUT, DELETE, TTL и compare-and-set contract распределённого Key-Value Store?
+* Как partitioning, replicas и routing metadata организуют хранение Key-Value Store?
+* Как Key-Value Store обрабатывает concurrent writes, tombstones и восстановление replicas?
+* Как определить ключи, окна и семантику квот проектируемого Rate Limiter?
+* Как распределённый Rate Limiter атомарно расходует budget и обрабатывает отказ хранилища?
+* Как разделить global quota, local admission control и tenant fairness без потери наблюдаемости?
+
+# System Design: проектирование платежей, заказов, бронирования и инвентаризации
+
+* Какие инварианты и state machines нужно определить для заказа, оплаты и резерва?
+* Как проектировать создание заказа и платёжную попытку при повторе клиентского запроса?
+* Как согласовать локальную запись заказа и вызов платёжного провайдера без общей транзакции?
+* Как payment webhooks, polling и reconciliation восстанавливают фактический исход оплаты?
+* Как reservation и conditional updates предотвращают overselling общего остатка?
+* Как TTL резерва и поздний ответ оплаты согласуются при конкурентном истечении брони?
+* Как атомарно бронировать уникальное место или несколько пересекающихся временных интервалов?
+* Как saga управляет отменой заказа, освобождением резерва и возвратом платежа?
+* Как ledger и audit trail помогают находить расхождения в платёжном процессе?
+* Как проверять платёжно-складской процесс при гонках, повторных событиях и неизвестном исходе?
+
+# System Design: проектирование файловых хранилищ, поиска и обработки медиа
+
+* Как разделить metadata, object bytes и authorization в проектируемом файловом сервисе?
+* Как direct upload, multipart upload и resumable protocol переживают обрыв передачи?
+* Как finalize upload проверяет целостность объекта и исключает публикацию незавершённого файла?
+* Как организовать версии, дедупликацию и удаление objects без потери ссылок и прав доступа?
+* Как media pipeline связывает очередь заданий, идемпотентные workers и публикацию derivatives?
+* Как resource isolation и limits защищают обработку изображений, видео и документов?
+* Как download path использует range requests, CDN и временные права доступа?
+* Как search index строится из system of record и обновляется после изменения документа?
+* Как full-text search, ranking, filters и pagination проектируются под пользовательский сценарий?
+* Как reindex, schema evolution и observability поддерживают файлово-поисковый сервис?
+
+# System Design: проектирование чатов, уведомлений, лент и Real-time-систем
+
+* Как durable message log, message ID и client retry организуют надёжную отправку сообщения в чат?
+* Как назначать порядок сообщений внутри conversation при нескольких gateways и retries?
+* Как различать accepted, delivered и read receipts без ложных гарантий доставки?
+* Как session directory, presence и reconnect поддерживают несколько устройств пользователя?
+* Как resumable cursor и bounded buffers восстанавливают real-time stream после разрыва?
+* Как notification service учитывает preferences, deduplication, retries и разные каналы?
+* Как fan-out on write и fan-out on read различаются при проектировании пользовательской ленты?
+* Как celebrity users, ranking и pagination влияют на архитектуру feed generation?
+* Как удаление контента и изменение membership распространяются в чатах, лентах и push?
+* Как измерять freshness, delivery latency и backlog и проверять real-time систему при сбоях?
+
+# System Design: требования, ограничения, компромиссы и методология проектирования
+
+* Как начать system design с пользователей, use cases и границ проектируемой системы?
+* Как превратить нефункциональные требования в измеримые критерии и failure scenarios?
+* Как выбирать допущения и фиксировать неизвестные данные при ограниченном времени проектирования?
+* Как API contracts и data model помогают обнаружить инварианты до выбора технологий?
+* Как построить high-level design и проследить критичные read и write paths?
+* Как выбирать места для synchronous calls, queues, caches и derived views?
+* Как сравнивать архитектурные альтернативы по consistency, latency, availability и стоимости?
+* Как включить security, privacy, observability и operability в основной дизайн?
+* Как спланировать эволюцию системы от первого релиза к росту нагрузки и данных?
+* Как провести design review и проверить, что архитектура выполняет исходные требования?
 
 # Architecture: Frontend - принципы и паттерны
 
@@ -1064,6 +1486,19 @@
 * Как выбирать стратегию ветвления для команды с частыми релизами?
 * Что такое protected branches и обязательные проверки merge request?
 * Для чего используют теги Git и semantic versioning?
+
+# Software Engineering: технический долг, Code Review, документация и владение сервисами
+
+* Как отличить технический долг от дефекта и оценить цену его сохранения?
+* Как подготовить небольшой reviewable change с понятным контекстом и критериями проверки?
+* Как reviewer оценивает корректность, совместимость и эксплуатационные риски изменения?
+* Как договорённости о Code Review уменьшают время ожидания без формальных approvals?
+* Как связать API documentation, ADR, runbooks и документацию владельца сервиса?
+* Что входит в service ownership кроме написания кода и реакции на инциденты?
+* Как планировать постепенный refactoring с сохранением наблюдаемого поведения?
+* Как Definition of Done учитывает миграции, наблюдаемость, rollback и поддержку?
+* Как characterization tests и seams помогают безопасно менять legacy-сервис?
+* Как управлять жизненным циклом сервиса, зависимостями и передачей владения?
 
 # Frontend: Инструменты - npm, pnpm и Yarn
 
@@ -1225,6 +1660,757 @@
 * Как настроить CSP и security headers на Nginx?
 * Как установить performance budget и контролировать его в CI?
 
+# DevOps: Ansible, Configuration Management и автоматизация инфраструктуры
+
+* Как configuration management отличается от provisioning и создания неизменяемых образов?
+* Как control node, inventory, managed nodes и connection plugins взаимодействуют в Ansible?
+* Как inventory groups, group_vars, host_vars и dynamic inventory описывают окружения?
+* Как playbook, play, task, module, role и collection разделяют ответственность?
+* Почему идемпотентность Ansible зависит от модуля и способа описания задачи?
+* Как precedence переменных и факты влияют на воспроизводимость playbook?
+* Как templates и handlers обновляют конфигурацию без лишних перезапусков сервиса?
+* Что проверяют check mode и diff mode и почему они не заменяют запуск на тестовом окружении?
+* Как serial, forks и throttle управляют параллелизмом и размером партии изменений?
+* Как block, rescue, always и failed_when помогают обрабатывать частичный сбой?
+* Как использовать become и хранить чувствительные данные при автоматизации Ansible?
+* Как тестировать роли, выявлять configuration drift и фиксировать версии collections?
+
+# DevOps: CI/CD, GitHub Actions, GitLab CI и Jenkins
+
+* Как спроектировать pipeline сервиса от проверки commit до продвижения релизного артефакта?
+* Как workflows, jobs, steps, stages и agents соотносятся в GitHub Actions, GitLab CI и Jenkins?
+* Как DAG зависимостей и параллельные jobs сокращают критический путь pipeline?
+* Как разделить cache, job artifacts и release registry в CI/CD?
+* Как обеспечить воспроизводимую сборку и продвижение одного digest между окружениями?
+* Как изолировать runners и agents для доверенного кода, внешних pull requests и production deploy?
+* Как OIDC и короткоживущие credentials ограничивают доступ CI/CD к облаку?
+* Как reusable workflows, GitLab includes и Jenkins Shared Libraries уменьшают дублирование pipeline?
+* Как исключить одновременный деплой и продвижение устаревшего pipeline в production?
+* Как выстроить approval gates и права доступа для критичных окружений?
+* Когда повторять упавшую job, а когда retry скрывает ошибку или повторяет побочный эффект?
+* Как измерять длительность, надёжность и стоимость pipeline и находить источник flaky failures?
+
+# DevOps: GitOps, Argo CD, Flux и декларативное управление
+
+* Какие принципы OpenGitOps отличают GitOps от хранения deployment scripts в Git?
+* Как reconciliation loop сравнивает desired state с live state и исправляет drift?
+* Как разделить обязанности CI и GitOps-контроллера при выпуске новой версии?
+* Как Application, Project и ApplicationSet организуют управление приложениями в Argo CD?
+* Как source-controller, kustomize-controller и helm-controller взаимодействуют во Flux?
+* Как auto-sync, self-heal и prune в Argo CD влияют на ручные изменения и удаление ресурсов?
+* Почему Synced и Healthy отражают разные свойства приложения?
+* Как организовать репозитории, overlays и продвижение версий между GitOps-окружениями?
+* Как управлять секретами в GitOps с помощью SOPS или внешнего secret manager?
+* Как sync waves, hooks и dependsOn помогают учитывать зависимости ресурсов?
+* Как выполнить аварийное ручное изменение или rollback, не вступая в конфликт с reconciliation?
+* Как восстановить GitOps-управление после потери кластера и ограничить полномочия контроллеров?
+
+# DevOps: Secret Management, Vault, Supply Chain Security и SBOM
+
+* Как определить жизненный цикл секрета и уменьшить количество его копий в инфраструктуре?
+* Как auth methods, policies, tokens и secrets engines разделяют ответственность в Vault?
+* Чем dynamic secrets отличаются от статических credentials и как работают lease, renew и revoke?
+* Как организовать ротацию секрета без остановки приложения и с отзывом старого доступа?
+* Почему Ansible Vault, SOPS и Kubernetes Secrets решают разные задачи управления секретами?
+* Как workload identity уменьшает зависимость от долгоживущих bootstrap credentials?
+* Как шифрование, seal и unseal связаны с доступностью и восстановлением Vault?
+* Какие атаки на source, dependencies, build и registry входят в software supply chain threat model?
+* Что содержит SBOM в форматах SPDX или CycloneDX и чего он не доказывает?
+* Как различаются подпись артефакта, provenance attestation и проверка policy перед деплоем?
+* Как фиксировать зависимости и проверять provenance с учётом гарантий SLSA?
+* Как реагировать на утечку секрета или компрометацию зависимости и определять затронутые релизы?
+
+# DevOps: стратегии деплоя, Rolling, Blue-Green, Canary и Rollback
+
+* Как выбирать стратегию деплоя по допустимому простою, риску и доступной мощности?
+* Как rolling update использует maxSurge и maxUnavailable в Kubernetes Deployment?
+* Как readiness, startup и liveness probes влияют на безопасность rollout?
+* Как connection draining и graceful shutdown предотвращают обрыв запросов при замене экземпляров?
+* Как blue-green deployment переключает трафик и какие общие зависимости ограничивают откат?
+* Как canary release распределяет трафик и почему доля Pods не равна точной доле запросов?
+* Как выбирать метрики, контрольную группу и окно наблюдения для автоматического canary analysis?
+* Чем feature flag, dark launch и shadow traffic отличаются от смены версии приложения?
+* Как обеспечить совместимость API, событий и схемы БД между старой и новой версиями?
+* Когда rollback версии безопасен, а когда требуется roll forward или компенсация данных?
+* Как организовать поэтапный rollout по регионам и ограничить blast radius?
+* Как проверить итог деплоя и предотвратить автоматическое продолжение зависшего rollout?
+
+# Docker: Compose, Networks, Volumes, Registry и работа с окружениями
+
+* Как Compose project объединяет services, networks, volumes и конфигурацию окружения?
+* Как compose.yaml, override files и profiles описывают разные режимы запуска?
+* Чем подстановка переменных Compose отличается от передачи environment в контейнер?
+* Как depends_on и healthcheck управляют готовностью зависимостей при запуске Compose?
+* Как service discovery и DNS работают внутри Compose network?
+* Чем container port отличается от published port и как ограничить доступ с хоста?
+* Как named volume, bind mount и tmpfs различаются по хранению и переносимости?
+* Как смена имени Compose project влияет на сети, volumes и изоляцию окружений?
+* Как организовать миграции БД и одноразовые задачи в Compose без гонки запуска?
+* Как registry, repository, tag и digest идентифицируют контейнерный образ?
+* Как передавать runtime secrets в Compose и какие ограничения есть у локальной схемы?
+* Как диагностировать связь и сохранность данных после пересоздания Compose services?
+
+# Docker: контейнеризация, архитектура, образы, Dockerfile и BuildKit
+
+* Как контейнер использует namespaces и cgroups и чем отличается от виртуальной машины?
+* Как Docker CLI, daemon, containerd и OCI runtime участвуют в запуске контейнера?
+* Чем image, container, layer и writable layer отличаются по жизненному циклу?
+* Как build context и .dockerignore влияют на входные данные сборки?
+* Как FROM, RUN, COPY и WORKDIR формируют файловую систему образа?
+* Чем ARG отличается от ENV и какие данные сохраняются в результате сборки?
+* Как ENTRYPOINT и CMD взаимодействуют в exec form и shell form?
+* Почему PID 1, сигналы и zombie processes важны для контейнерного приложения?
+* Как multi-stage Dockerfile отделяет toolchain от runtime-артефактов?
+* Как BuildKit строит граф сборки и использует cache mounts и внешние кеши?
+* Как secret mounts и SSH mounts BuildKit передают доступ без включения ключа в слой?
+* Как buildx и multi-platform manifests связывают архитектуру сборки с платформой запуска?
+
+# Docker: оптимизация образов, безопасность и управление ресурсами
+
+* Как анализировать размер образа по слоям и находить ненужные runtime-зависимости?
+* Почему удаление файла в следующем слое не удаляет его из истории образа?
+* Как выбирать base image между full distribution, slim, Alpine и distroless?
+* Как порядок COPY и RUN влияет на cache invalidation и скорость пересборки?
+* Как non-root user, rootless Docker и user namespaces уменьшают разные риски?
+* Как capabilities, seccomp и запрет privilege escalation ограничивают контейнер?
+* Как read-only root filesystem и минимальные mounts сокращают доступный для изменения объём?
+* Почему Docker socket, privileged mode и host namespaces ослабляют изоляцию?
+* Как CPU quota, CPU shares и cpuset влияют на использование процессора контейнером?
+* Как memory limit, swap и OOM влияют на завершение контейнера?
+* Как ограничивать процессы, файловые дескрипторы, логи и рост диска контейнера?
+* Как обновлять base images и проверять уязвимости без потери воспроизводимости релиза?
+
+# Infrastructure as Code: Terraform, OpenTofu и Pulumi
+
+* Как Terraform, OpenTofu и Pulumi описывают desired state и взаимодействуют с provider API?
+* Зачем IaC-инструменту state и почему конфигурация не заменяет его полностью?
+* Как plan или preview отличается от apply и почему одобренный план может устареть?
+* Как dependency graph и явные зависимости задают порядок создания ресурсов?
+* Как remote backend, locking и versioning защищают совместную работу со state?
+* Почему sensitive marking не гарантирует отсутствие секрета в state или plan?
+* Как modules и component resources формируют переиспользуемые инфраструктурные интерфейсы?
+* Как разделять окружения по state, credentials и blast radius?
+* Как import, moved blocks и state operations позволяют принять и переорганизовать существующие ресурсы?
+* Как drift, refresh и изменения через cloud console влияют на следующий plan?
+* Как lifecycle rules и зависимые ресурсы влияют на замену и удаление инфраструктуры?
+* Как тестировать IaC и продолжать работу после частично выполненного apply?
+
+# Kubernetes: ConfigMaps, Secrets, Volumes и Persistent Storage
+
+* Как ConfigMap и Secret разделяют конфигурацию и чувствительные данные Kubernetes-приложения?
+* Как environment variables и volume projections по-разному получают обновления ConfigMap и Secret?
+* Почему base64 в Secret не заменяет encryption at rest и контроль доступа?
+* Как emptyDir и projected volumes связаны с жизненным циклом Pod?
+* Как PersistentVolume, PersistentVolumeClaim, StorageClass и CSI driver взаимодействуют при provisioning?
+* Как access modes ReadWriteOnce, ReadOnlyMany, ReadWriteMany и ReadWriteOncePod ограничивают доступ?
+* Как WaitForFirstConsumer связывает provisioning диска с scheduling и topology?
+* Как reclaim policy и удаление PVC влияют на сохранность данных?
+* Как volume expansion и изменение StorageClass ограничены возможностями CSI и файловой системы?
+* Как volume snapshots отличаются от согласованного backup приложения?
+* Как permissions, fsGroup и securityContext влияют на доступ к смонтированным данным?
+* Как диагностировать Pending PVC, ошибки attach или mount и нехватку места на volume?
+
+# Kubernetes: Helm, Kustomize, Operators, RBAC и Troubleshooting
+
+* Как Helm chart, values, templates и release описывают установку приложения?
+* Как Helm upgrade, rollback и hooks связаны с фактической готовностью и изменениями данных?
+* Как фиксировать chart dependencies и проверять итоговые manifests до установки?
+* Как Kustomize bases, overlays и patches изменяют manifests без шаблонизации всего YAML?
+* Чем Helm и Kustomize отличаются по модели переиспользования и управлению релизом?
+* Как CustomResourceDefinition и Operator расширяют Kubernetes API и reconciliation?
+* Как status conditions, finalizers и повторные вызовы влияют на корректность Operator?
+* Как Role, ClusterRole, RoleBinding и ClusterRoleBinding задают права субъектов?
+* Как ServiceAccount, token projection, authentication и admission связаны с доступом workload к API?
+* Как проверять минимальные RBAC-права и избегать неочевидного privilege escalation?
+* Как построить последовательную диагностику Pod через status, events, logs и describe?
+* Как отличать ошибки приложения, scheduling, сети, storage и control plane при инциденте?
+
+# Kubernetes: Scheduling, Autoscaling, Probes, Requests и Limits
+
+* Как scheduler использует requests, node capacity и allocatable при размещении Pod?
+* Чем CPU request отличается от CPU limit и как возникает throttling?
+* Как memory request, memory limit, OOMKilled и eviction описывают разные события?
+* Как QoS classes и overcommit влияют на поведение при нехватке ресурсов узла?
+* Как nodeSelector, node affinity и pod affinity ограничивают выбор узла?
+* Как taints, tolerations и topology spread constraints управляют изоляцией и распределением Pods?
+* Как PriorityClass и preemption помогают разместить важный Pod и какие задачи не решают?
+* Как HPA вычисляет число реплик по resource metrics и почему requests влияют на результат?
+* Как custom metrics, stabilization windows и scaling policies ограничивают колебания HPA?
+* Как VPA и масштабирование узлов взаимодействуют с HPA и scheduling?
+* Как startup, readiness и liveness проверки отражают разные этапы работы Pod?
+* Как PodDisruptionBudget, termination grace period и запас мощности влияют на обслуживание кластера?
+
+# Kubernetes: Services, Ingress, Gateway API и сетевое взаимодействие
+
+* Как Pod network и CNI обеспечивают адресацию и связь между Pods на разных узлах?
+* Как Service selectors и EndpointSlices связывают стабильный адрес с backend Pods?
+* Чем ClusterIP, NodePort, LoadBalancer и ExternalName различаются по маршруту запроса?
+* Как port, targetPort и nodePort соотносятся с портом контейнерного процесса?
+* Как headless Service и cluster DNS помогают обнаруживать отдельные экземпляры?
+* Как kube-proxy или альтернативный dataplane реализует маршрутизацию Service?
+* Как Ingress resource, Ingress controller и IngressClass разделяют описание и реализацию L7 routing?
+* Как GatewayClass, Gateway и HTTPRoute разделяют ответственность в Gateway API?
+* Как TLS termination, passthrough и шифрование до backend меняют границы доверия?
+* Как NetworkPolicy ограничивает ingress и egress и от чего зависит её исполнение?
+* Как externalTrafficPolicy, session affinity и длительные соединения влияют на балансировку?
+* Как последовательно диагностировать DNS, Service, endpoints и сетевые политики при недоступности приложения?
+
+# Kubernetes: архитектура, Pods, Deployments, ReplicaSets и StatefulSets
+
+* Как API server, etcd, scheduler и controller manager разделяют обязанности control plane?
+* Как kubelet, container runtime и сетевые компоненты обеспечивают выполнение Pod на node?
+* Как declarative API, spec, status и reconciliation связывают желаемое состояние с фактическим?
+* Почему Pod является единицей размещения и какие ресурсы разделяют его containers?
+* Как init containers и sidecars дополняют жизненный цикл основного container?
+* Как ReplicaSet поддерживает число replicas и зачем над ним нужен Deployment?
+* Как revision, Pod template и rollout strategy задают обновление Deployment?
+* Как StatefulSet сохраняет identity, порядок запуска и связь Pod с persistent storage?
+* Когда выбирать Deployment, StatefulSet, DaemonSet, Job или CronJob?
+* Как ownerReferences, labels и selectors влияют на управление и удаление ресурсов?
+* Как Pod phases, container states и restartPolicy описывают сбой и восстановление?
+* Что происходит с workloads при отказе worker node, API server или quorum etcd?
+
+# Linux: Bash, Shell Scripting, systemd и системное логирование
+
+* Как shell выполняет подстановки и почему quoting определяет корректность Bash-скрипта?
+* Чем shell variables, exported environment и positional parameters отличаются по области действия?
+* Как stdin, stdout, stderr, pipes и redirections связывают процессы?
+* Как exit status, pipefail и ограничения set -e влияют на обработку ошибок?
+* Как безопасно обрабатывать имена файлов, пробелы, arrays и ввод через read?
+* Как functions, subshells и command substitution влияют на состояние и результаты скрипта?
+* Как trap, сигналы и временные файлы помогают завершать скрипт без утечки ресурсов?
+* Как сделать shell-скрипт повторяемым и исключить гонки одновременных запусков?
+* Как unit files, targets, dependencies и ordering управляют сервисами systemd?
+* Как Type, ExecStart, Restart и ограничения частоты перезапуска определяют поведение сервиса?
+* Как journalctl, persistent journal и log rotation помогают исследовать сбой сервиса?
+* Как systemd timers отличаются от cron по расписанию, окружению и пропущенным запускам?
+
+# Linux: архитектура ОС, ядро, системные вызовы, процессы и потоки
+
+* Как kernel space и user space разделяют выполнение и доступ к ресурсам Linux?
+* Чем системный вызов отличается от библиотечной функции и как работают errno и EINTR?
+* Как process, thread, PID и TID связаны с ресурсами и адресным пространством?
+* Как fork и exec создают и заменяют процессы без полного копирования всей памяти?
+* Как wait, exit status, zombie и orphan описывают завершение дочернего процесса?
+* Как file descriptor, open file description и dup задают совместный доступ к файлу?
+* Как pipe, Unix domain socket, shared memory и message passing различаются как IPC?
+* Как сигналы доставляются процессам и потокам и почему обработчик ограничен в действиях?
+* Как blocking, nonblocking и asynchronous I/O различаются по поведению вызывающего кода?
+* Как select, poll и epoll помогают обслуживать много соединений?
+* Как context switch отличается от перехода в kernel mode и влияет на производительность?
+* Как procfs, sysfs и файловые интерфейсы отражают состояние процессов и устройств?
+
+# Linux: безопасность, SSH, Hardening, SELinux и AppArmor
+
+* Как threat model и принцип least privilege определяют практический план hardening Linux?
+* Как SSH использует host keys и user keys для разных проверок доверия?
+* Как безопасно управлять SSH-доступом, sudo и аварийным административным доступом?
+* Как agent forwarding, port forwarding и bastion меняют границы SSH-доверия?
+* Как DAC, capabilities и mandatory access control дополняют друг друга?
+* Как SELinux contexts, domains и types участвуют в решении о доступе?
+* Как AppArmor profiles и режимы enforce и complain ограничивают приложение?
+* Как расследовать SELinux или AppArmor denial без отключения защиты целиком?
+* Как updates, минимальный набор пакетов и контроль services уменьшают поверхность атаки?
+* Как host firewall, listening sockets и network exposure участвуют в hardening?
+* Как защищать сервис через systemd sandboxing и изоляцию файловой системы?
+* Как audit logs, контроль изменений и управление credentials помогают обнаружить компрометацию?
+
+# Linux: диагностика, профилирование, strace, perf, tcpdump и eBPF
+
+* Как построить диагностику Linux от пользовательского симптома к CPU, памяти, диску и сети?
+* Как load average, utilization, saturation и latency различаются при оценке нагрузки?
+* Как strace показывает системные вызовы и какие задержки и риски вносит tracing?
+* Как perf sampling, call graphs и flame graphs помогают искать CPU bottleneck?
+* Как on-CPU и off-CPU profiling различают вычисления и ожидание?
+* Как vmstat, iostat, pidstat и pressure stall information дополняют друг друга?
+* Как tcpdump и packet capture помогают отличить DNS, TCP и TLS-проблемы?
+* Как ss, socket states и retransmissions помогают диагностировать сетевые соединения?
+* Как eBPF tracing использует kernel hooks и чем отличается от произвольного kernel module?
+* Как symbols, stack unwinding, BTF и CO-RE влияют на достоверность профиля?
+* Как ограничить overhead и доступ к чувствительным данным при production profiling?
+* Как подтвердить найденную причину и измерить эффект исправления без ложных выводов?
+
+# Linux: память, планировщик, OOM, Cgroups и Namespaces
+
+* Как virtual memory, page tables и page faults связывают память процесса с физической RAM?
+* Чем RSS, PSS, virtual size и page cache отличаются при анализе памяти?
+* Как reclaim, swap и memory pressure влияют на latency до срабатывания OOM?
+* Как kernel OOM killer, cgroup OOM и userspace oomd различаются по области действия?
+* Как cgroup v2 memory.max, memory.high и memory.events помогают ограничивать и наблюдать память?
+* Как scheduler распределяет CPU между runnable tasks и что означает fair scheduling?
+* Как nice, CPU weight, quota и affinity задают разные ограничения процессорного времени?
+* Как CPU throttling, run queue и steal time объясняют задержки при невысокой средней загрузке?
+* Как NUMA locality и huge pages влияют на задержки и расход памяти?
+* Как PID, mount, network, user и другие namespaces создают разные представления ресурсов?
+* Как cgroups и namespaces взаимодействуют в контейнере, не заменяя полноценную security boundary?
+* Как исследовать memory leak, allocator fragmentation и рост cache внутри ограниченного процесса?
+
+# Linux: файловая система, пользователи, группы, права и ACL
+
+* Как path, directory entry, inode и open file description представляют файл в Linux?
+* Чем hard link отличается от symbolic link при удалении и перемещении файла?
+* Как UID, GID, supplementary groups и effective identity определяют доступ процесса?
+* Как права r, w и x различаются для обычного файла и каталога?
+* Как umask, setgid directory и sticky bit влияют на совместную работу с файлами?
+* Как POSIX ACL и ACL mask расширяют и ограничивают обычные mode bits?
+* Почему удалённый файл может продолжать занимать место и как найти удерживающий его процесс?
+* Как mount points, filesystem types и mount options влияют на доступ и поведение файлов?
+* Как page cache, writeback, fsync и rename связаны с надёжным сохранением файла?
+* Как disk space, inode exhaustion и quotas вызывают разные ошибки записи?
+* Как sparse files, copy-on-write и reflinks влияют на реальный расход места?
+* Как безопасно выдавать сервису доступ к данным без широких прав на весь каталог?
+
+# Caching: стратегии кэширования, инвалидация, TTL и Cache Stampede
+
+* Как выбирать данные для серверного кэша по стоимости чтения и допустимой устарелости?
+* Чем cache-aside, read-through, write-through и write-behind отличаются по потоку данных?
+* Как спроектировать cache key с учётом tenant, прав, параметров и версии данных?
+* Почему TTL не заменяет инвалидацию и не гарантирует строгую свежесть?
+* Как согласовать изменение БД и инвалидацию кэша при конкурентном чтении?
+* Как singleflight, stale-while-revalidate и TTL jitter уменьшают Cache Stampede?
+* Когда полезен negative caching и как не закэшировать отказ системы как отсутствие данных?
+* Чем локальный кэш процесса отличается от общего распределённого кэша?
+* Как eviction policy, лимит памяти и hot keys влияют на серверный кэш?
+* Как защитить основную БД при отказе кэша или массовом cold start?
+* Как read-your-writes и версионирование помогают после изменения закэшированного объекта?
+* Какие метрики и проверки показывают пользу, корректность и риски кэширования?
+
+# Redis
+
+* Как модель выполнения команд Redis влияет на latency и выбор дорогих операций?
+* Как выбирать Redis Strings, Hashes, Lists, Sets, Sorted Sets и Streams по операциям?
+* Как expiration, eviction и maxmemory определяют поведение Redis при нехватке памяти?
+* Чем Redis pipelining отличается от MULTI/EXEC, WATCH и Lua-скрипта?
+* Как RDB и AOF различаются по восстановлению, потере данных и стоимости записи?
+* Какие гарантии даёт Redis replication и почему WAIT не делает Redis строго согласованным?
+* Чем Redis Sentinel отличается от Redis Cluster при отказах и масштабировании?
+* Как hash slots, hash tags, MOVED и ASK влияют на клиент Redis Cluster?
+* Как безопасно использовать Redis для временной блокировки с учётом истечения lease?
+* Как искать причины Redis latency через SLOWLOG, latency monitoring и метрики?
+
+# Cloud: GCP, Azure, Serverless, Managed Services и FinOps
+
+* Как выбирать между VM, managed containers, Kubernetes и functions в GCP или Azure?
+* Как Cloud Run и Azure Container Apps организуют выполнение контейнерных приложений?
+* Почему serverless требует контроля concurrency, cold starts и downstream capacity?
+* Как оценивать ограничения managed database или messaging service перед внедрением?
+* Как workload identity и managed identity уменьшают потребность в постоянных ключах?
+* Как переносить приложение между GCP и Azure без предположения о полной совместимости сервисов?
+* Как managed service меняет обязанности команды по backup, failover и обновлениям?
+* Что такое FinOps и как связать расходы облака с владельцами и бизнес-результатом?
+* Как labels, tags, billing export и allocation помогают распределять облачные расходы?
+* Чем budget alerts отличаются от жёстких лимитов потребления и quotas?
+* Как rightsizing, autoscaling, reservations и прерываемые ресурсы меняют полную стоимость?
+* Как сравнивать варианты облачного размещения по стоимости операции, надёжности и нагрузке?
+
+# Cloud: IaaS, PaaS, SaaS, IAM, VPC и облачная архитектура
+
+* Как IaaS, PaaS и SaaS разделяют управление инфраструктурой и приложением?
+* Как shared responsibility model влияет на защиту данных в разных облачных моделях?
+* Как accounts, subscriptions, projects и resource hierarchy задают границы управления облаком?
+* Чем cloud identity, IAM role и network policy отличаются по назначению?
+* Как проектировать least privilege и временный доступ для людей и workloads?
+* Как VPC или VNet, subnets, routes и firewalls задают сетевые границы приложения?
+* Чем public endpoint, private endpoint, NAT и VPN различаются в облачной сети?
+* Как region, zone и выбранный failure domain влияют на облачную архитектуру?
+* Как load balancing, health checks и service discovery взаимодействуют в облаке?
+* Как encryption at rest, KMS и rotation ключей связаны с контролем доступа?
+* Как проектировать восстановление облачного приложения через RPO, RTO и проверку backup?
+* Как IaC, audit logs и policy controls помогают управлять изменениями облачной среды?
+
+# AWS: EC2, ECS, EKS, Lambda, S3, RDS и основные сервисы
+
+* Как выбирать между EC2, ECS, EKS, Fargate и Lambda для backend-нагрузки?
+* Чем AWS Region отличается от Availability Zone и как это влияет на доступность?
+* Как VPC, subnets, route tables, security groups и NAT определяют доступ к сервису?
+* Как IAM roles и временные credentials используются приложением в AWS?
+* Как связать Load Balancer, health checks и Auto Scaling при развёртывании backend?
+* Как модель вызова Lambda влияет на retries, конкурентность и идемпотентность?
+* Чем S3 отличается от файловой системы и как выдавать доступ через presigned URL?
+* Чем RDS Multi-AZ отличается от read replicas и резервного копирования?
+* Когда использовать SQS, SNS и EventBridge для интеграции AWS-сервисов?
+* Как организовать логи, метрики, tracing, конфигурацию и секреты в AWS?
+* Как сделать backend в AWS пригодным для замены экземпляров и безопасного обновления?
+* Какие составляющие полной стоимости AWS-нагрузки нужно учитывать кроме compute?
+
+# Backend: API-контракты, OpenAPI, Swagger и документация
+
+* Что входит в API-контракт кроме JSON-схемы тела запроса?
+* Чем OpenAPI Specification отличается от Swagger UI и генераторов клиентов?
+* Как описывать required, nullable, форматы и ограничения полей с учётом версии OpenAPI?
+* Как документировать HTTP-статусы и единый формат ошибок API?
+* Как описать authentication schemes и требования авторизации в OpenAPI?
+* Как фиксировать контракт пагинации, фильтрации и сортировки API?
+* Как описывать идемпотентность, конкурентные изменения и ограничения частоты запросов?
+* Какие изменения API являются breaking changes даже при сохранении типов полей?
+* Чем design-first подход отличается от code-first при работе с OpenAPI?
+* Как проверять соответствие реализации OpenAPI-контракту в CI?
+* Как поддерживать примеры, SDK и пользовательскую документацию API в актуальном состоянии?
+* Как описывать webhooks и границы применимости OpenAPI для асинхронного взаимодействия?
+
+# Backend: Contract Testing, Testcontainers, Mocks и тестовые окружения
+
+* Какие риски проверяют contract tests по сравнению с unit, integration и E2E tests?
+* Как устроен consumer-driven contract testing и верификация provider?
+* Чем проверка OpenAPI-схемы отличается от проверки потребительского контракта?
+* Что такое provider states и как готовить данные для проверки контракта?
+* Какие зависимости полезно запускать через Testcontainers?
+* Почему готовность контейнера нельзя определять только по запущенному процессу или открытому порту?
+* Как изолировать данные и ресурсы при параллельных интеграционных тестах?
+* Как проверять миграции и поведение repository на реальной базе данных?
+* Когда использовать mock, stub или fake, а когда нужен реальный сервис?
+* Как моделировать задержки, обрывы соединений и неожиданные ответы внешнего API в тестах?
+* Как организовать Testcontainers в CI с воспроизводимыми образами и ограниченными ресурсами?
+* Какие гарантии нельзя получить только с помощью contract tests и контейнерных тестов?
+
+# Backend: DTO, валидация, сериализация и Dependency Injection
+
+* Как разделить входной DTO, выходной DTO и внутреннюю модель backend?
+* Почему TypeScript-типы DTO не заменяют runtime-валидацию запроса?
+* В каком порядке выполнять parsing, transformation, validation и бизнес-проверки входных данных?
+* Как различать отсутствующее поле, null и пустое значение в PATCH DTO?
+* Как whitelist полей и явный mapping защищают от mass assignment?
+* Какие проверки стоит выполнять на границе API, в бизнес-сценарии и в базе данных?
+* Какие ошибки создаёт неявное приведение query-параметров к boolean и number?
+* Как сериализовать даты, BigInt, decimal и циклические ссылки в API-ответе?
+* Как возвращать ошибки валидации без утечки секретов и внутренних деталей?
+* Как singleton, request и transient lifetimes влияют на DI в backend?
+* Что такое captive dependency и как обнаружить неверное смешение DI scopes?
+* Как runtime-токены, factories и декораторы связывают зависимости при DI в TypeScript?
+
+# Backend: Express, Fastify, NestJS и другие Node.js-фреймворки
+
+* Чем Express, Fastify и NestJS отличаются по уровню абстракции и организации приложения?
+* Как HTTP-запрос проходит через маршрутизацию и middleware в Express?
+* Как Express 5 обрабатывает ошибки async handlers и какие ограничения остаются?
+* Как hooks и encapsulation plugins организуют lifecycle запроса в Fastify?
+* Как schemas validation и response serialization работают в Fastify?
+* Как NestJS modules, imports, exports и providers задают границы зависимостей?
+* Как HTTP adapter NestJS влияет на переносимость приложения между Express и Fastify?
+* В каком порядке в NestJS выполняются guards, pipes, interceptors и exception filters?
+* Как request-scoped providers влияют на создание объектов и производительность NestJS?
+* Как безопасно подключать сторонние плагины и middleware Node.js-фреймворка?
+* Как учитывать streaming, uploads и backpressure при выборе Node.js-фреймворка?
+* Как сравнивать Node.js-фреймворки и планировать миграцию без опоры только на benchmark RPS?
+
+# Backend: Go, Python, Java/Kotlin и C# - экосистемы и особенности
+
+* По каким критериям выбирать Go, Python, Java/Kotlin или C# для backend-сервиса?
+* Как goroutines, channels и context организуют конкурентность и отмену в Go?
+* Как errors, interfaces и нулевые значения влияют на проектирование Go-сервиса?
+* Как GIL и free-threaded builds CPython влияют на многопоточную серверную обработку?
+* Как выбирать между asyncio, потоками и процессами для Python backend?
+* Как JIT, garbage collection и прогрев JVM влияют на Java/Kotlin-сервис?
+* Чем Kotlin coroutines и Java virtual threads отличаются как модели конкурентности?
+* Как Task, async/await и CancellationToken используются в ASP.NET Core?
+* Почему shared mutable state остаётся источником гонок во всех серверных языках?
+* Как сравнивать startup time, память и пропускную способность разных backend-runtime?
+* Как различия типов, чисел, времени и сериализации влияют на контракты полиглотных сервисов?
+* Как ограничивать стоимость поддержки нескольких языков в одной backend-платформе?
+
+# Rust: Ownership, Borrowing, Lifetimes, многопоточность и серверная разработка
+
+* Как ownership, move, Copy и Drop управляют ресурсами Rust без tracing garbage collector?
+* Как правила borrowing для &T и &mut T предотвращают недопустимый доступ к памяти?
+* Что описывают lifetimes в Rust и почему аннотация не продлевает жизнь значения?
+* Как String, str, Vec<T> и slices различаются по владению и размещению данных?
+* Как Option, Result, оператор ? и panic разделяют обработку ошибок Rust-сервиса?
+* Как traits, generics и dyn Trait различаются по dispatch и стоимости абстракции?
+* Как Send и Sync определяют возможность передачи и совместного доступа между потоками?
+* Как выбирать Arc, Mutex, RwLock, atomics и channels для разделяемого состояния Rust?
+* Как Future, async/await, Tokio tasks и spawn_blocking организуют серверную конкурентность?
+* Как строить Rust HTTP-сервис с ограничением конкурентности, отменой и graceful shutdown?
+
+# Backend: GraphQL, gRPC и Protocol Buffers
+
+* Как GraphQL schema и resolvers определяют выполнение запроса по сравнению с REST API?
+* Почему в GraphQL возникает N+1 и как request-scoped batching решает эту проблему?
+* Как проектировать авторизацию и ограничения стоимости GraphQL-запроса?
+* Как nullability и error propagation определяют частичный ответ GraphQL?
+* Какие гарантии порядка дают GraphQL mutations и означают ли они транзакцию?
+* Как эволюционировать GraphQL schema через добавления и deprecation?
+* Как gRPC service definition и Protocol Buffers используются для генерации клиентов и серверов?
+* Чем unary, server streaming, client streaming и bidirectional streaming отличаются в gRPC?
+* Как gRPC deadlines, cancellation, status codes и retries влияют на результат RPC?
+* Как field numbers, reserved и неизвестные поля обеспечивают эволюцию Protobuf-схемы?
+* Чем explicit field presence отличается от default values в Protobuf?
+* Какие ограничения возникают при использовании GraphQL subscriptions и gRPC из браузера?
+
+# Backend: HTTP-сервер, жизненный цикл запроса, middleware и обработка ошибок
+
+* Какие этапы проходит HTTP-запрос от приёма соединения до завершения ответа backend?
+* Как keep-alive, connection reuse и ограничения соединений влияют на HTTP-сервер?
+* Почему порядок parsing, authentication, authorization и middleware меняет поведение API?
+* Как ограничивать размер, длительность и сложность обработки входящего HTTP-запроса?
+* Почему нужно проверять Content-Type и различать malformed body и бизнес-ошибку?
+* Как централизованно преобразовывать исключения в HTTP-ответы с устойчивым контрактом?
+* Что делать, если ошибка возникла после отправки HTTP headers или части тела?
+* Как отменять работу backend после disconnect клиента и освобождать ресурсы запроса?
+* Как graceful shutdown прекращает приём запросов и завершает активную работу?
+* Как согласовать timeout reverse proxy, HTTP-сервера и downstream-зависимостей?
+* Как настройки trusted proxy влияют на client IP, scheme, cookies и rate limiting?
+* Какие данные запроса логировать для диагностики и как избежать утечки чувствительных значений?
+
+# Backend: ORM, Query Builders - Prisma, Drizzle, TypeORM и аналоги
+
+* Чем ORM, SQL query builder и прямой SQL отличаются по уровню контроля и ответственности?
+* Как сравнивать Prisma, Drizzle и TypeORM для конкретного backend-проекта?
+* Почему типобезопасный ORM-запрос не гарантирует корректную схему и результат во время выполнения?
+* Как связи, eager loading и lazy loading приводят к N+1 и избыточной загрузке данных?
+* Как выбрать между JOIN, несколькими запросами и batching при загрузке связанных данных?
+* Как передать одну транзакцию через несколько ORM-операций и не выйти из её контекста?
+* Как isolation level, optimistic locking и database constraints защищают изменения через ORM?
+* Как применять миграции ORM по схеме expand-and-contract без остановки приложения?
+* Как connection pool ORM ведёт себя при нескольких экземплярах приложения и serverless-запусках?
+* Как безопасно сочетать ORM с raw SQL и динамической сортировкой?
+* Как исследовать медленный ORM-запрос через SQL logs и execution plan?
+* Как тестировать mapping, транзакции и миграции ORM без привязки теста к внутренним вызовам клиента?
+
+# Backend: REST API - проектирование, версионирование, пагинация и фильтрация
+
+* Какие ограничения REST важны при проектировании ресурсного HTTP API?
+* Как выбирать ресурсы, URI и вложенность без копирования структуры таблиц?
+* Как различать семантику GET, POST, PUT, PATCH и DELETE в изменяющем API?
+* Как проектировать создание ресурса и длительную операцию через 201 и 202?
+* Как HTTP-статусы помогают различать ошибки доступа, конфликт и неверные данные?
+* Как реализовать keyset pagination с устойчивой сортировкой и непрозрачным cursor?
+* Когда offset pagination приемлема и как изменения данных влияют на страницы?
+* Как проектировать фильтрацию и сортировку с ограничением сложности запросов?
+* Как ETag и If-Match защищают REST-ресурс от lost update?
+* Как выбрать стратегию версионирования REST API и организовать deprecation?
+* Как обеспечить повторяемость POST-операции и согласовать её с HTTP-семантикой?
+* Как тестировать REST API на совместимость, ошибки и некорректные комбинации параметров?
+
+# Backend: Unit, Integration и E2E Testing
+
+* Как распределить backend-проверки между unit, integration и E2E по рискам системы?
+* Что считать unit в backend-коде и почему тест не должен повторять реализацию?
+* Как строить тест бизнес-правила по схеме Arrange, Act, Assert?
+* Как проверять негативные сценарии, ошибки зависимостей и отсутствие побочных эффектов?
+* Когда backend integration test должен включать HTTP, реальную БД или брокер?
+* Как выбрать небольшой набор E2E-сценариев для backend-продукта?
+* Как управлять временем, случайностью и внешними зависимостями в тестах?
+* Как проектировать test data builders и fixtures без скрытой зависимости тестов?
+* Как проверять атомарность бизнес-операции и откат при частичном сбое?
+* Как coverage и mutation testing помогают находить пробелы в backend-тестах?
+* Как диагностировать flaky tests и почему автоматический retry не исправляет их причину?
+* Как организовать быстрые и надёжные backend-проверки в CI?
+
+# Backend: идемпотентность, дедупликация, Outbox/Inbox и надёжная обработка событий
+
+* Чем идемпотентность бизнес-операции отличается от дедупликации сообщения?
+* Как спроектировать область действия, payload fingerprint и срок хранения idempotency key?
+* Как атомарно обработать два одновременных запроса с одним idempotency key?
+* Как вернуть результат повтора, если первый запрос завершился с неизвестным исходом?
+* Как Transactional Outbox устраняет окно между commit данных и отправкой события?
+* Чем polling publisher отличается от CDC при публикации outbox?
+* Как атомарно совместить inbox-дедупликацию и бизнес-изменение consumer?
+* Когда подтверждать сообщение брокеру при обработке с локальной транзакцией?
+* Как сохранять порядок событий одной сущности при параллельной публикации и обработке?
+* Как согласовать внешний HTTP-эффект с inbox, если он не входит в транзакцию БД?
+* Как retention, очистка outbox и хранение deduplication records влияют на безопасный replay?
+* Как проверять надёжность обработчика сбоем между каждым шагом и повторной доставкой?
+
+# Backend: интеграции, Webhooks и взаимодействие с внешними сервисами
+
+* Как построить адаптер внешнего API, чтобы его контракт не распространялся по бизнес-коду?
+* Как управлять credentials, scopes и ротацией ключей внешней интеграции?
+* Как выбирать между webhook, polling и периодической сверкой внешних данных?
+* Как проверять webhook signature по исходному телу и защищаться от replay?
+* Когда webhook endpoint может подтвердить получение события до бизнес-обработки?
+* Как обрабатывать дубли и нарушение порядка входящих webhooks?
+* Как проектировать исходящие webhooks с подписями, retries и историей доставки?
+* Как защищать исходящие HTTP-интеграции и webhook URLs от SSRF?
+* Как учитывать rate limits, Retry-After и ограничения конкурентности внешнего API?
+* Как менять версию внешнего API и проверять совместимость интеграции?
+* Как reconciliation восстанавливает состояние после пропущенных событий или неизвестного результата?
+* Как наблюдать интеграции и проверять их в sandbox без утечки реальных данных?
+
+# Backend: конфигурация, окружения, Feature Flags и мультитенантность
+
+* Как разделить конфигурацию, секреты и изменяемые бизнес-настройки backend?
+* Как валидировать конфигурацию при запуске и управлять приоритетами её источников?
+* Почему изменение environment variables не равно безопасному hot reload конфигурации?
+* Как разделять dev, test, staging и production без расхождения поведения приложения?
+* Чем feature flag отличается от обычной конфигурации и release deployment?
+* Как обеспечить устойчивое распределение пользователей по rollout cohorts?
+* Как выбирать fallback, кэширование и наблюдаемость при отказе feature flag provider?
+* Как удалять устаревшие flags и тестировать допустимые сочетания переключателей?
+* Как различать tenant identity, user identity и контекст организации в запросе?
+* Как сравнивать shared schema, schema-per-tenant и database-per-tenant?
+* Как предотвращать утечки между tenants через SQL, кэш, файлы, очереди и фоновые задачи?
+* Как управлять миграциями, квотами и noisy neighbor в мультитенантном backend?
+
+# Backend: работа с файлами, Streams и Object Storage
+
+* Как streaming и buffering отличаются по памяти, задержке и обработке ошибок при работе с файлами?
+* Как передавать файл через stream pipeline с backpressure и общей отменой?
+* Как ограничивать multipart upload и проверять имя, тип и содержимое файла?
+* Как организовать прямую загрузку в Object Storage через ограниченное разрешение backend?
+* Как multipart upload и resumable upload восстанавливают передачу большого файла?
+* Как согласовать запись metadata в БД и загрузку объекта без общей транзакции?
+* Как Object Storage keys, versioning и checksums помогают обеспечить целостность файла?
+* Как выдавать приватный файл через proxy, signed URL или CDN с учётом прав?
+* Как Range requests и Content-Disposition влияют на скачивание и возобновление?
+* Как генерировать большой CSV или архив потоком и обрабатывать частичный результат?
+* Как проектировать TTL, lifecycle и очистку временных или осиротевших объектов?
+* Как наблюдать и тестировать файловые операции при медленном клиенте, обрыве и повреждении данных?
+
+# Backend: тестирование конкурентности, Fuzz Testing и Performance Testing
+
+* Как воспроизвести race condition через управляемое чередование операций?
+* Как проверить lost update, duplicate creation и нарушение инварианта при конкурентных запросах?
+* Почему sleep и случайный параллельный запуск недостаточны для надёжного concurrency test?
+* Как property-based testing отличается от набора заранее выбранных примеров?
+* Как generators, shrinking и сохраняемый seed помогают расследовать fuzz-ошибку?
+* Как fuzz testing проверяет parsers, сериализацию и API-границы backend?
+* Чем load, stress, spike и soak testing различаются по цели эксперимента?
+* Как open и closed workload models влияют на результаты нагрузочного теста?
+* Почему coordinated omission скрывает задержки перегруженного сервиса?
+* Как измерять latency percentiles, throughput, errors и насыщение ресурсов вместе?
+* Как отличить bottleneck приложения от ограничения генератора нагрузки или тестового окружения?
+* Как задавать performance thresholds и проверять отсутствие регрессии воспроизводимым экспериментом?
+
+# Backend: фоновые задачи, Workers, Cron и планировщики
+
+* Когда backend-операцию стоит переносить из HTTP-запроса в фоновую задачу?
+* Как выбирать между очередью задач, cron и workflow scheduler?
+* Какие данные и версии контракта должны храниться в payload фоновой задачи?
+* Как visibility timeout, lease и heartbeat связаны с повторным запуском job?
+* Как сделать бизнес-эффект worker идемпотентным при повторной доставке задачи?
+* Как проектировать retries, backoff и dead letter queue для фоновых задач?
+* Как ограничивать concurrency workers и учитывать квоты downstream-сервисов?
+* Как cron должен учитывать timezone, переходы времени, пропущенные и перекрывающиеся запуски?
+* Почему распределённая блокировка не гарантирует единственное выполнение задачи после истечения lease?
+* Как durable progress, checkpoints и chunking помогают продолжить долгую задачу?
+* Как останавливать worker без потери задачи и поддерживать отмену пользователем?
+* Как наблюдать возраст очереди, зависшие задачи и успешность бизнес-результата?
+
+# Node.js: Event Loop, libuv, Worker Threads и процессы
+
+* Как V8, libuv и bindings разделяют выполнение JavaScript и системного I/O в Node.js?
+* Как timers, poll и check phases влияют на порядок callbacks в современных Node.js?
+* Как process.nextTick и Promise microtasks могут задержать I/O и timers?
+* Почему порядок setTimeout и setImmediate нельзя объявить одинаковым для любого контекста?
+* Какие операции используют libuv thread pool и как его насыщение влияет на несвязанные запросы?
+* Чем асинхронный API отличается от CPU-работы, реально вынесенной из main thread?
+* Как worker_threads изолируют JavaScript execution и когда нужен worker pool?
+* Как structured clone, transferable objects и SharedArrayBuffer различаются при обмене между workers?
+* Как child_process и cluster отличаются от worker_threads по памяти и отказам?
+* Как event loop utilization и event loop delay помогают отличить CPU block от внешнего ожидания?
+* Как uncaughtException, unhandledRejection и отказ worker влияют на жизненный цикл Node.js сервиса?
+* Как graceful shutdown координирует HTTP server, workers, очереди и открытые handles?
+
+# Node.js: Streams, Buffers, производительность и управление памятью
+
+* Как Readable, Writable, Duplex и Transform задают разные роли Node.js streams?
+* Как write return value, drain и highWaterMark управляют потоком данных?
+* Как paused mode, flowing mode и async iteration меняют чтение Readable stream?
+* Как pipeline и finished координируют ошибки, завершение и освобождение ресурсов streams?
+* Как AbortSignal и преждевременное закрытие клиента влияют на streaming pipeline?
+* Как Buffer, Uint8Array, ArrayBuffer и encoding представляют бинарные данные?
+* Чем Buffer.alloc, Buffer.allocUnsafe, slice и subarray отличаются по инициализации и совместному хранению?
+* Почему chunk boundary не совпадает с границей UTF-8 символа или сообщения протокола?
+* Как heapUsed, external, arrayBuffers и RSS описывают разные области памяти Node.js?
+* Как V8 garbage collection, allocation rate и удерживаемые references влияют на latency?
+* Как расследовать рост памяти через heap snapshots, allocation profiles и native memory metrics?
+* Как ограничить concurrency и buffering при streaming большого числа запросов?
+
+# Observability: Logs, Metrics, Traces и OpenTelemetry
+
+* Как logs, metrics и traces отвечают на разные вопросы о работе распределённого сервиса?
+* Как instrumentation, OpenTelemetry API, SDK, exporter и Collector разделяют ответственность?
+* Как trace, span, parent context и span links описывают синхронную и асинхронную работу?
+* Как context propagation и baggage передают correlation через HTTP и messaging?
+* Как resource attributes и semantic conventions помогают сопоставлять telemetry разных сервисов?
+* Как counter, gauge и histogram различаются по измеряемому поведению?
+* Как histogram buckets, percentiles и aggregation влияют на измерение tail latency?
+* Почему high-cardinality attributes создают разную цену в metrics, logs и traces?
+* Как head sampling и tail sampling влияют на видимость ошибок и нагрузку?
+* Как structured logging, severity и trace correlation помогают исследовать конкретный запрос?
+* Как retries, batching, memory limits и очереди Collector влияют на потерю telemetry?
+* Как защищать sensitive data и проверять, что instrumentation не меняет существенно работу сервиса?
+
+# Observability: Prometheus, Grafana, Loki, ELK, Jaeger и Alerting
+
+* Как Prometheus scrape, exporters, service discovery и time series labels формируют metrics pipeline?
+* Как rate, increase и aggregation в PromQL учитывают counter resets и разбиение по instances?
+* Как recording rules и histogram queries помогают строить быстрые и корректные dashboards?
+* Как retention, local TSDB и remote write связаны с восстановлением и масштабированием metrics?
+* Как Grafana data sources, variables и dashboards отделяют визуализацию от хранения данных?
+* Как Loki labels и LogQL отличаются от полнотекстовой индексации Elasticsearch в ELK?
+* Как parsing, structured fields и index или stream design влияют на поиск logs?
+* Как Jaeger получает traces и какие ограничения задают sampling и storage?
+* Как Alertmanager grouping, deduplication, inhibition и silence управляют уведомлениями?
+* Как pending period и multi-window burn-rate alerts уменьшают шум без сокрытия инцидентов?
+* Как runbook, ownership и routing превращают alert в выполнимое действие?
+* Как наблюдать сам telemetry stack и обнаруживать scrape failures, dropped data и недоступность alert delivery?
+
+# Performance: Bottlenecks, Connection Pools, Rate Limiting и Backpressure
+
+* Как определить ограничивающий ресурс backend по throughput, latency и saturation?
+* Как закон Литтла связывает число запросов в работе, throughput и время ответа?
+* Почему увеличение connection pool может снизить производительность базы данных?
+* Как согласовать размеры connection pools с числом replicas приложения и лимитом БД?
+* Чем ограничение частоты запросов отличается от ограничения конкурентности?
+* Как token bucket, leaky bucket и sliding window различаются при ограничении трафика?
+* Как обеспечить общий rate limit при нескольких экземплярах backend?
+* Как backpressure проходит через HTTP-запросы, очереди и асинхронные обработчики?
+* Как ограниченные очереди, deadlines и load shedding защищают backend от перегрузки?
+* Почему retries, fan-out и hot keys усиливают перегрузку и как проверить защиту?
+
+# Performance: профилирование, оптимизация и нагрузочное тестирование - k6, JMeter
+
+* Как сформулировать проверяемую гипотезу оптимизации и выбрать baseline backend?
+* Как сопоставлять CPU, wall-clock и allocation profiles с трассировками запросов?
+* Как закон Амдала помогает оценить предел ускорения backend-операции?
+* Чем load, stress, spike, soak и breakpoint tests различаются по цели?
+* Как выбрать открытую или закрытую модель нагрузки и избежать coordinated omission?
+* Как воспроизвести в k6 или JMeter смесь операций, авторизацию и реалистичные данные?
+* Как в k6 связать scenarios, executors, checks и thresholds с критериями приёмки?
+* Как организовать нагрузочный запуск JMeter через CLI без искажения результатов listeners?
+* Как анализировать p95, p99, ошибки и achieved load при сравнении нагрузочных запусков?
+* Как доказать устойчивость оптимизации и встроить performance regression checks в CI?
+
+# Reliability: Incident Management, Postmortem, On-Call и Chaos Engineering
+
+* Как определить incident severity и момент объявления инцидента по влиянию на пользователей?
+* Как Incident Commander, технические исполнители и коммуникационная роль делят работу?
+* Почему при инциденте сначала снижают ущерб и как выбирать mitigation?
+* Как вести timeline инцидента и передавать управление между дежурными?
+* Как отличить полезный paging alert от уведомления и уменьшить alert fatigue?
+* Как runbooks, обучение и escalation policy готовят инженера к on-call?
+* Что должен содержать blameless postmortem, чтобы предотвращать повторение инцидента?
+* Как выбирать и проверять corrective actions после postmortem?
+* Как сформулировать гипотезу chaos experiment, steady state и условия остановки?
+* Как game days и fault injection проверяют обнаружение, восстановление и готовность команды?
+
+# Reliability: SLA, SLO, SLI, Error Budget и управление надёжностью
+
+* Чем SLI, SLO и SLA различаются в управлении надёжностью сервиса?
+* Как определить good events и valid events для пользовательского SLI?
+* Как выбрать availability, latency, freshness и correctness SLIs для разных сценариев?
+* Как rolling и calendar windows меняют оценку SLO и error budget?
+* Как рассчитать request-based error budget и почему его нельзя автоматически переводить в downtime?
+* Что такое burn rate и как оценить время исчерпания error budget?
+* Как multi-window burn-rate alerts обнаруживают быстрые и медленные нарушения SLO?
+* Как error budget policy влияет на релизы и приоритет reliability work?
+* Как зависимости и частичные отказы влияют на достижимость пользовательского SLO?
+* Как пересматривать SLO при низком трафике, изменении продукта и неполной телеметрии?
+
+# Reliability: отказоустойчивость, Failover, Backup, RPO, RTO и Disaster Recovery
+
+* Как failure domains и анализ зависимостей помогают обнаружить скрытый single point of failure?
+* Чем active-passive и active-active архитектуры отличаются при отказе площадки?
+* Как health checks, leader election и fencing обеспечивают безопасный failover?
+* Почему репликация и высокая доступность не заменяют резервные копии?
+* Как RPO и RTO задают требования к данным и полному восстановлению бизнес-сценария?
+* Как full, incremental, log backups и PITR складываются в цепочку восстановления?
+* Как защитить backup от удаления, компрометации credentials и повреждения данных?
+* Как выбрать backup-and-restore, pilot light, warm standby или hot standby для DR?
+* Как планировать failback и проверять согласованность данных после аварийного переключения?
+* Как проводить restore drills и измерять фактическое выполнение disaster recovery плана?
+
 # Node.js: Runtime и серверная интеграция
 
 * Чем Node.js отличается от браузерной среды выполнения JavaScript?
@@ -1242,6 +2428,369 @@
 * Почему нельзя доверять данным, пришедшим от клиента?
 * Как обрабатывать таймауты и отмену исходящих HTTP-запросов на сервере?
 * Чем serverless function отличается от долгоживущего Node.js сервера?
+
+# ClickHouse
+
+* Для каких аналитических workloads подходит ClickHouse и где его преимущества ограничены?
+* Как колонночное хранение, сжатие и векторизованное выполнение ускоряют ClickHouse?
+* Как MergeTree хранит data parts и почему background merges важны для эксплуатации?
+* Чем ORDER BY, PRIMARY KEY и PARTITION BY различаются в MergeTree?
+* Как sparse primary index и data skipping indexes уменьшают объём чтения?
+* Как batching и asynchronous inserts помогают избежать слишком большого числа small parts?
+* Какие гарантии ReplacingMergeTree даёт для версий строк и когда нужен FINAL?
+* Как incremental materialized view и AggregatingMergeTree обрабатывают новые данные?
+* Как шардирование, репликация и Distributed engine участвуют в запросе ClickHouse?
+* Как проектировать JOIN и денормализацию для аналитики в ClickHouse?
+* Как updates, deletes и TTL соотносятся с фоновым преобразованием данных ClickHouse?
+* Как EXPLAIN, query_log и системные метрики помогают оптимизировать ClickHouse?
+
+# CockroachDB и TiDB
+
+* Какие задачи решают CockroachDB и TiDB как distributed SQL databases?
+* Как SQL layer, распределённое KV-хранилище и replication устроены в CockroachDB и TiDB?
+* Как ranges или Regions распределяют данные и что происходит при их split?
+* Как Raft replication и размещение реплик влияют на commit и отказоустойчивость?
+* Чем совместимость CockroachDB с PostgreSQL отличается от совместимости TiDB с MySQL?
+* Какие уровни изоляции и транзакционные аномалии нужно учитывать в CockroachDB и TiDB?
+* Почему distributed SQL может требовать retry всей транзакции на стороне клиента?
+* Как optimistic и pessimistic concurrency control влияют на конфликтующие транзакции?
+* Как monotonic keys, secondary indexes и hot rows создают bottlenecks distributed SQL?
+* Как multi-region размещение данных меняет задержку и требования к согласованности?
+* Как online schema changes и миграции проверяют в распределённой SQL-базе?
+* Как оценивать latency, hotspots, replication lag и восстановление CockroachDB или TiDB?
+
+# Data Engineering: ETL, ELT, CDC, Apache Spark, Flink и Airflow
+
+* Чем ETL отличается от ELT и как выбрать место преобразования данных?
+* Как разделить ingestion, raw layer, transformation и serving в data pipeline?
+* Как CDC согласует начальный snapshot и дальнейшие изменения источника?
+* Как schema evolution и изменение бизнес-смысла данных влияют на pipeline?
+* Чем Apache Spark и Flink отличаются по основным моделям обработки?
+* Как event time, watermarks и late events участвуют в потоковом pipeline?
+* Как checkpoints, replay и sink semantics определяют end-to-end гарантии обработки?
+* Как idempotent writes, deduplication и MERGE помогают безопасному backfill?
+* Как Airflow DAG, tasks и retries организуют запуск data workflows?
+* Почему XCom и scheduler Airflow не предназначены для передачи и обработки всего dataset?
+* Как data quality, freshness, lineage и observability проверяют надёжность pipeline?
+* Как учитывать data skew, shuffle, partition count и small files при масштабировании обработки?
+
+# Data: OLTP, OLAP, Data Warehouse и Data Lake
+
+* Как OLTP и OLAP различаются по запросам, данным и требованиям к задержке?
+* Почему аналитические запросы могут мешать транзакционной базе и как разделять workloads?
+* Как row-oriented и column-oriented storage подходят разным типам доступа?
+* Чем Data Warehouse, Data Lake и Lakehouse отличаются по управлению данными?
+* Что означают schema-on-write и schema-on-read и какие проверки всё равно нужны?
+* Как fact tables, dimensions и grain задают корректность аналитической модели?
+* Как star schema и snowflake schema отличаются от нормализованной OLTP-модели?
+* Как Slowly Changing Dimensions сохраняют историю изменения справочников?
+* Как partitioning, file format и compaction влияют на чтение в Data Lake?
+* Как Apache Iceberg или Delta Lake добавляют транзакционные свойства к файловому хранилищу?
+* Как data marts, semantic layer и единые определения метрик связаны с качеством аналитики?
+* Как выбирать архитектуру данных с учётом свежести, доступа, retention и стоимости?
+
+# Database: ACID, транзакции, MVCC, блокировки и уровни изоляции
+
+* Какие гарантии ACID даёт транзакция и какие бизнес-правила она не проверяет автоматически?
+* Как autocommit, BEGIN, COMMIT, ROLLBACK и savepoints задают границы транзакции?
+* Как MVCC использует версии строк и snapshots для конкурентного чтения?
+* Чем dirty read, non-repeatable read, phantom read, lost update и write skew отличаются?
+* Как Read Committed, Repeatable Read и Serializable различаются на примере PostgreSQL?
+* Почему snapshot isolation не эквивалентна serializable isolation?
+* Как SELECT FOR UPDATE и условный UPDATE защищают конкурентное изменение строки?
+* Как unique, foreign key и check constraints участвуют в обеспечении инвариантов?
+* Почему возникает deadlock и как порядок захвата ресурсов уменьшает риск?
+* Как безопасно повторить транзакцию после serialization failure или deadlock?
+* Как долгие транзакции влияют на locks, MVCC cleanup и размер базы?
+* Почему commit timeout создаёт неизвестный исход и как его согласовать с идемпотентностью?
+
+# Database: SQL, NoSQL, партиционирование, шардинг и масштабирование
+
+* Как сравнивать SQL и NoSQL по модели данных и операциям вместо универсальных ярлыков?
+* Когда выбирать relational, document, key-value, wide-column или graph database?
+* Чем нормализация, денормализация и query-driven modeling отличаются по цене изменений?
+* Чем table partitioning, sharding и replication отличаются по назначению?
+* Как hash, range и directory-based sharding распределяют данные и запросы?
+* Как выбрать shard key с учётом cardinality, locality и горячих tenants?
+* Как resharding и rebalance переносят данные без потери запросов и изменений?
+* Как global secondary indexes, JOIN и cross-shard transactions усложняют масштабирование?
+* Чем вертикальное масштабирование отличается от горизонтального и где остаются bottlenecks?
+* Как read replicas масштабируют чтение и какие проблемы создаёт replication lag?
+* Как routing, connection pools и fan-out запросы меняются после шардирования?
+* Какие измерения показывают, что системе нужна новая модель хранения или шардирование?
+
+# Database: индексы, планы выполнения и оптимизация запросов
+
+* Как B-tree index ускоряет поиск и почему он увеличивает стоимость записи?
+* Как composite index использует порядок колонок при equality, range и ORDER BY?
+* Как partial, expression и covering indexes отличаются по применению?
+* Когда Hash, GIN, GiST или BRIN index уместны на примере PostgreSQL?
+* Как selectivity, cardinality и statistics влияют на выбор плана запроса?
+* Чем EXPLAIN отличается от EXPLAIN ANALYZE и какие риски есть при выполнении запроса?
+* Как читать estimated rows, actual rows, loops и время узлов execution plan?
+* Как nested loop, hash join и merge join отличаются по требованиям к данным?
+* Почему функции, приведения типов и шаблоны поиска могут мешать использованию индекса?
+* Как сортировка, pagination и index-only scan влияют на объём работы БД?
+* Как выявлять лишние индексы и создавать новый индекс с учётом блокировок?
+* Как проверять SQL-оптимизацию на реальных данных без ухудшения других запросов?
+
+# Database: миграции, репликация, резервное копирование и восстановление
+
+* Как разделить schema migrations и data migrations и обеспечить воспроизводимость их выполнения?
+* Как выполнить изменение схемы по этапам expand, backfill и contract при нескольких версиях приложения?
+* Почему DDL может блокировать рабочие запросы и как ограничить влияние миграции?
+* Как организовать большой backfill с checkpoints, ограничением нагрузки и безопасным повторным запуском?
+* Чем физическая репликация отличается от логической на примере PostgreSQL?
+* Как синхронная и асинхронная репликация влияют на подтверждение записи и потерю данных?
+* Как измерять replication lag и обеспечивать чтение собственных записей после переключения на реплику?
+* Как replication slots и остановившиеся потребители могут привести к переполнению диска?
+* Чем logical dump, physical backup и snapshot отличаются по условиям восстановления?
+* Как base backup и архив WAL позволяют выполнить Point-in-Time Recovery?
+* Как спланировать failover базы данных и исключить запись в два primary?
+* Как проверить восстановление резервной копии и фактическое соблюдение RPO и RTO?
+
+# Database: реляционная модель, связи, нормализация и проектирование схем
+
+* Как relation, tuple, attribute и domain соотносятся с SQL-таблицей и её ограничениями?
+* Чем candidate key, primary key, alternate key и foreign key отличаются по назначению?
+* Когда выбирать natural key, surrogate key или составной primary key?
+* Как моделировать связи один-к-одному, один-ко-многим и многие-ко-многим?
+* Как функциональные зависимости помогают обнаруживать аномалии вставки, обновления и удаления?
+* Какие требования задают первая, вторая и третья нормальные формы?
+* Чем BCNF строже третьей нормальной формы и какие компромиссы возникают при декомпозиции?
+* Как проверить декомпозицию на отсутствие потерь и сохранение зависимостей?
+* Как NULL и трёхзначная логика влияют на ограничения и сравнения в SQL?
+* Как выбирать ON DELETE и ON UPDATE для внешних ключей без случайной потери данных?
+* Как моделировать деньги, время, статусы и исторические изменения в реляционной схеме?
+* Как документировать и проверять схему на соответствие бизнес-инвариантам и реальным запросам?
+
+# SQL: запросы, JOIN, CTE, подзапросы и оконные функции
+
+* Как логический порядок обработки SELECT влияет на WHERE, GROUP BY, HAVING и window functions?
+* Как INNER, LEFT, CROSS и SELF JOIN влияют на состав и кратность результата?
+* Почему перенос условия между ON и WHERE меняет смысл LEFT JOIN?
+* Как NULL влияет на NOT IN, NOT EXISTS и поиск отсутствующих связанных строк?
+* Чем COUNT(*), COUNT(column), DISTINCT и условные агрегаты отличаются при группировке?
+* Когда использовать correlated subquery, EXISTS или JOIN без случайного дублирования строк?
+* Как CTE и recursive CTE организуют запрос и почему материализация зависит от СУБД?
+* Как ROW_NUMBER, RANK и DENSE_RANK решают задачи top-N и обработки равных значений?
+* Как PARTITION BY, ORDER BY и window frame меняют SUM и LAST_VALUE?
+* Как написать keyset pagination с устойчивым ORDER BY и составным cursor?
+
+# SQLite
+
+* Как embedded-архитектура SQLite влияет на соединения, latency и выбор нагрузки?
+* Как type affinity и STRICT tables различаются при проверке типов SQLite?
+* Как DEFERRED, IMMEDIATE и autocommit определяют транзакции SQLite?
+* Как WAL, readers, writer и checkpoint взаимодействуют в SQLite?
+* Как SQLITE_BUSY, busy timeout и повтор транзакции обрабатывают конкуренцию в SQLite?
+* Почему foreign key enforcement в SQLite нужно проверять для каждого соединения?
+* Чем INTEGER PRIMARY KEY, rowid и AUTOINCREMENT различаются в SQLite?
+* Как EXPLAIN QUERY PLAN и индексы помогают исследовать запрос SQLite?
+* Как SQLite Online Backup API и VACUUM INTO обеспечивают согласованную резервную копию?
+* Как безопасно развёртывать SQLite в контейнерах, на shared storage и при нескольких replicas?
+
+# BigQuery и Snowflake
+
+* Для каких нагрузок BigQuery и Snowflake подходят лучше транзакционной backend-БД?
+* Как BigQuery и Snowflake разделяют хранение, вычисления и управление запросами?
+* Чем BigQuery slots и reservations отличаются от virtual warehouses Snowflake?
+* Как partitioning и clustering BigQuery отличаются от micro-partitions и clustering Snowflake?
+* Как загружать batch, streaming и CDC-данные в аналитическое хранилище?
+* Как обеспечить идемпотентную загрузку и дедупликацию аналитических событий?
+* Как JOIN, фильтры и выбор столбцов влияют на стоимость и время аналитического запроса?
+* Как читать query plan и отличать сканирование, shuffle, spill и ожидание compute?
+* Чем materialized views, query result cache и предварительные агрегаты отличаются по гарантиям?
+* Как управлять доступом к datasets, schemas, строкам и чувствительным столбцам?
+* Как time travel, snapshots и клонирование помогают восстановлению и тестированию данных?
+* Как сравнивать BigQuery и Snowflake по полной стоимости, свежести данных и требованиям команды?
+
+# Apache Cassandra, ScyllaDB и DynamoDB
+
+* Чем Cassandra, ScyllaDB и DynamoDB отличаются по архитектуре и эксплуатации?
+* Почему схему Cassandra и DynamoDB проектируют от паттернов доступа?
+* Как partition key и clustering columns определяют хранение и чтение в Cassandra?
+* Как избежать hot partitions и неограниченного роста партиций?
+* Как связаны replication factor, consistency level и кворумы Cassandra?
+* Как работают LSM-хранение, compaction, tombstones и repair в Cassandra?
+* Когда нужны lightweight transactions и почему CQL BATCH не заменяет SQL-транзакцию?
+* Что даёт shard-per-core архитектура ScyllaDB и какие ограничения совместимости нужно учитывать?
+* Как устроены primary key, LSI и GSI в DynamoDB?
+* Какие гарантии чтения предоставляют таблицы, индексы и global tables DynamoDB?
+* Как применять conditional writes и транзакции DynamoDB для конкурентных изменений?
+* Как диагностировать throttling, задержки и риск потери данных в распределённой NoSQL-базе?
+
+# MongoDB и Firestore
+
+* Как document model MongoDB и collections/documents Firestore влияют на границы агрегатов?
+* Когда embedding лучше references и какие ограничения роста документа нужно учитывать?
+* Как schema validation и правила эволюции документов дополняют гибкую структуру данных?
+* Какие гарантии даёт атомарное изменение одного MongoDB document и как защититься от lost update?
+* Как MongoDB transactions и Firestore transactions различаются по API, конфликтам и повтору callback?
+* Как write concern, read concern и read preference задают поведение MongoDB при репликации?
+* Как indexes MongoDB и single-field/composite indexes Firestore связаны с допустимыми запросами?
+* Как pagination, сортировка и ограничения query API влияют на проектирование document database?
+* Как MongoDB shard key и распределение нагрузки Firestore влияют на hot documents и hotspots?
+* Как change streams и Firestore listeners отличаются от долговременной бизнес-очереди?
+* Как Firestore Security Rules, IAM и MongoDB roles разделяют доступ клиентов и backend?
+* Как проверять миграции документов, backup и восстановление без предположения о полной совместимости эмулятора?
+
+# MySQL и MariaDB
+
+* Почему MySQL и MariaDB нельзя считать полностью взаимозаменяемыми современными СУБД?
+* Как storage engine и InnoDB определяют транзакции, блокировки и восстановление таблицы?
+* Как clustered primary key InnoDB влияет на secondary indexes и стоимость записи?
+* Как consistent reads и locking reads различаются при Repeatable Read и Read Committed в InnoDB?
+* Как record locks, gap locks и next-key locks защищают диапазоны InnoDB?
+* Как исследовать deadlock InnoDB и безопасно повторить отменённую транзакцию?
+* Чем redo log, undo log и binary log отличаются по роли в MySQL и MariaDB?
+* Как binlog replication, GTID и failover зависят от конкретного продукта и конфигурации?
+* Как implicit commit, metadata locks и online DDL влияют на изменение схемы?
+* Как EXPLAIN, фактическое выполнение и statistics помогают оптимизировать запросы MySQL и MariaDB?
+* Как SQL modes, collations, JSON и типы времени создают различия при переносе приложения?
+* Как согласовать logical или physical backup с binlog position и point-in-time recovery?
+
+# PostgreSQL
+
+* Как процессы PostgreSQL, shared buffers и WAL участвуют в выполнении и фиксации запроса?
+* Как MVCC PostgreSQL связывает snapshots, версии строк и долгие транзакции?
+* Почему PostgreSQL нужны autovacuum, VACUUM и ANALYZE и чем опасен VACUUM FULL?
+* Как читать EXPLAIN (ANALYZE, BUFFERS) в PostgreSQL и находить ошибку оценки cardinality?
+* Как выбрать B-tree, GIN, GiST или BRIN для конкретного запроса PostgreSQL?
+* Как partial, expression и covering indexes работают в PostgreSQL?
+* Как Read Committed, Repeatable Read и Serializable влияют на retries в PostgreSQL-приложении?
+* Как row locks, advisory locks и SKIP LOCKED применять в PostgreSQL без скрытых гонок?
+* Как проектировать JSONB-данные, ограничения и индексы в PostgreSQL?
+* Как PostgreSQL streaming replication, logical replication и PITR решают разные задачи?
+
+# TimescaleDB
+
+* Как TimescaleDB использует PostgreSQL, hypertables и chunks для временных рядов?
+* Как выбирать chunk interval с учётом working set, ingestion и late-arriving data?
+* Как проектировать индексы и unique constraints для time-partitioned hypertable?
+* Как time_bucket, gap filling, LOCF и interpolation меняют смысл time-series запроса?
+* Как continuous aggregates отличаются от обычного aggregate query и materialized view?
+* Как refresh window, invalidation и real-time aggregation определяют свежесть continuous aggregate?
+* Как rowstore, columnstore и Hypercore влияют на запись и аналитические scans TimescaleDB?
+* Как согласовать retention raw data, aggregates и архивирование временных рядов?
+* Как batching, COPY, indexes и chunk pruning влияют на ingestion и query performance?
+* Как эксплуатировать TimescaleDB background jobs, upgrades и backup/restore с учётом версии extension?
+
+# Vector Databases - pgvector, Qdrant, Milvus и Weaviate
+
+* Как сравнивать pgvector, Qdrant, Milvus и Weaviate по модели данных и интеграции с приложением?
+* Почему embedding model, размерность и версия пространства должны совпадать при поиске?
+* Как cosine similarity, inner product и L2 distance связаны с нормализацией vectors?
+* Как HNSW и IVFFlat меняют recall, latency, память и стоимость построения индекса?
+* Как metadata filters и tenant authorization взаимодействуют с approximate nearest neighbor search?
+* Как hybrid search, reciprocal rank fusion и reranking улучшают retrieval?
+* Как chunking, document IDs и embedding pipeline обеспечивают обновление поискового корпуса?
+* Как consistency, deletes и replica lag влияют на свежесть и права доступа в vector search?
+* Как измерять Recall@k, MRR, nDCG и качество retrieval на репрезентативном наборе запросов?
+* Как планировать ёмкость, reindex, backups и восстановление vector database?
+
+# Neo4j
+
+* Как property graph Neo4j использует nodes, relationships, labels и properties?
+* Когда связь моделировать relationship, отдельным node или свойством?
+* Как MATCH и OPTIONAL MATCH различаются по отсутствующим данным и фильтрации?
+* Как WITH, aggregations и cardinality влияют на промежуточные результаты Cypher?
+* Почему несвязанные patterns и неограниченные traversals могут резко увеличить стоимость запроса?
+* Как indexes и constraints помогают найти стартовые nodes и закрепить инварианты?
+* Чем MERGE отличается от CREATE и почему MERGE не заменяет uniqueness constraint?
+* Как transactions, locks и retries обеспечивают корректность конкурентных изменений графа?
+* Как EXPLAIN и PROFILE помогают отличить дешёвый traversal от дорогого поиска?
+* Как parameters и динамические идентификаторы связаны с безопасным построением Cypher?
+* Как routing, replicas и bookmarks влияют на чтение после записи в Neo4j cluster?
+* Как различаются transactional graph queries, Graph Data Science и задачи backup и восстановления?
+
+# Microsoft SQL Server и Oracle Database
+
+* Как SQL Server instances и databases отличаются от Oracle instance, database, CDB и PDB?
+* Как transaction log SQL Server и redo, undo и archive logs Oracle участвуют в восстановлении?
+* Как locking Read Committed и READ_COMMITTED_SNAPSHOT различаются в SQL Server?
+* Как Oracle Read Committed и consistent read используют undo для чтения согласованной версии?
+* Чем statement-level snapshot отличается от transaction-level snapshot в SQL Server и Oracle?
+* Как clustered index SQL Server отличается от heap и index-organized table Oracle?
+* Как execution plans, statistics и bind parameters влияют на диагностику запросов в обеих СУБД?
+* Как SQL Server tempdb и Oracle temporary и undo storage участвуют в работе запросов?
+* Как blocking, deadlocks и долгие транзакции исследуют без переноса предположений другой СУБД?
+* Как Always On availability groups и Oracle Data Guard отличаются от backup и горизонтального шардирования?
+* Как full, differential, incremental и log backups связаны с point-in-time recovery в этих СУБД?
+* Как планировать перенос приложения между SQL Server и Oracle с учётом SQL dialect, типов и operational features?
+
+# Elasticsearch и OpenSearch
+
+* Как Elasticsearch и OpenSearch используют Lucene и чем поисковый индекс отличается от основной БД?
+* Как inverted index, analyzer и tokenization обеспечивают полнотекстовый поиск?
+* Чем text, keyword, object и nested различаются при проектировании mapping?
+* Как primary shards и replica shards распределяют данные и обеспечивают отказоустойчивость?
+* Чем refresh, flush и merge отличаются по видимости записи, надёжности и стоимости?
+* Как match, term, filter context и BM25 влияют на совпадения и ranking?
+* Как проектировать bulk indexing и обрабатывать частичные ошибки без потери документов?
+* Как reindex и index aliases позволяют изменить mapping и переключить поиск?
+* Как search_after и Point in Time помогают выполнять глубокую пагинацию?
+* Как aggregations, cardinality и high-cardinality fields влияют на память и точность?
+* Как диагностировать red или yellow cluster health, unassigned shards и медленные запросы?
+* Как планировать snapshots, upgrades и перенос между Elasticsearch и OpenSearch с учётом совместимости?
+
+# Apache Kafka: Topics, Partitions, Consumer Groups и Stream Processing
+
+* Как Kafka хранит события и чем журнал отличается от обычной очереди задач?
+* Как partition key влияет на порядок событий и распределение нагрузки в Kafka?
+* Как replication factor, ISR, acks и min.insync.replicas влияют на надёжность Kafka?
+* Как consumer groups распределяют партиции между обработчиками?
+* Когда фиксировать consumer offset и как это связано с гарантиями доставки?
+* Почему возникает rebalance и как уменьшить его влияние на обработку?
+* Чем идемпотентный producer отличается от Kafka-транзакции и где заканчивается exactly-once?
+* Чем retention отличается от log compaction и как используются tombstones в Kafka?
+* Как организовать retry, dead letter topic и обработку poison messages в Kafka?
+* Как изменять схемы событий Kafka с сохранением совместимости потребителей?
+* Как stream processing обрабатывает event time, окна и опоздавшие события?
+* Как диагностировать consumer lag, перекос партиций и недостаточную пропускную способность Kafka?
+
+# RabbitMQ: архитектура, Exchanges, Queues, Routing и Consumers
+
+* Как connection, channel, exchange, binding и queue связаны в RabbitMQ?
+* Как direct, topic, fanout и headers exchanges маршрутизируют сообщения RabbitMQ?
+* Как durable queues, persistent messages и publisher confirms участвуют в надёжной публикации RabbitMQ?
+* Почему publisher confirm не заменяет mandatory routing и consumer acknowledgement в RabbitMQ?
+* Как manual acknowledgements, nack и prefetch управляют RabbitMQ consumer?
+* Чем quorum queues RabbitMQ отличаются от classic queues и streams?
+* Какие гарантии порядка сохраняются в RabbitMQ при нескольких consumers и redelivery?
+* Как построить ограниченные retries и dead-letter обработку в RabbitMQ?
+* Как RabbitMQ consumers согласуют изменение БД, ack и повторную доставку?
+* Как диагностировать рост очереди, unacked messages и resource alarms в RabbitMQ?
+
+# Messaging: NATS, Redis Streams, BullMQ, AWS SQS и SNS
+
+* Чем Core NATS отличается от JetStream по хранению, replay и гарантиям доставки?
+* Как subjects, wildcard subscriptions и queue groups маршрутизируют сообщения в NATS?
+* Как JetStream stream и durable consumer задают retention, acknowledgment и redelivery?
+* Как Redis Streams хранит entries и чем XREAD отличается от consumer groups?
+* Как pending entries list, XACK и XAUTOCLAIM поддерживают восстановление Redis Streams consumer?
+* Как retention и trimming Redis Streams согласовать с отстающими consumers?
+* Как BullMQ использует queue, worker, job ID и retries для фоновых задач?
+* Почему BullMQ job становится stalled и как это связано с lock renewal и повторной обработкой?
+* Как SQS Standard использует visibility timeout и delete для обработки сообщений?
+* Какие гарантии SQS FIFO зависят от message group, deduplication и действий consumer?
+* Как SNS fan-out и SNS-to-SQS subscriptions разделяют публикацию и независимую обработку?
+* Как выбирать и эксплуатировать эти инструменты с учётом durability, backpressure и восстановления?
+
+# Messaging: брокеры, очереди, Pub/Sub, гарантии доставки и обработка ошибок
+
+* Как work queue, Pub/Sub и replayable log различаются по модели потребления?
+* Чем publisher confirmation отличается от consumer acknowledgment?
+* Как at-most-once, at-least-once и exactly-once формулируются относительно границы обработки?
+* Почему потерянный acknowledgment приводит к дубликату даже после успешной обработки?
+* Как prefetch, batch size и число consumers влияют на throughput и backpressure?
+* Как ordering по ключу или partition взаимодействует с параллелизмом и retries?
+* Как retry policy, exponential backoff и jitter предотвращают лавину повторов?
+* Как dead-letter queue и quarantine помогают разбирать poison messages?
+* Как выбрать место acknowledgment относительно транзакции БД и внешнего побочного эффекта?
+* Как schema evolution, headers и event envelope обеспечивают совместимость consumers?
+* Как graceful shutdown, lease extension и rebalance влияют на незавершённую обработку?
+* Как lag, возраст сообщения, redelivery rate и DLQ показывают здоровье messaging-системы?
 
 # Algorithms: Алгоритмы и структуры данных
 
@@ -1340,6 +2889,21 @@
 * Как оценить последствия выбора SSR, микрофронтендов или монорепозитория?
 * Как использовать feature flags при совместной работе нескольких команд?
 * Как избежать критической зависимости от одного разработчика или компонента?
+
+# AI Backend: LLM API, Embeddings, RAG, Model Serving и интеграция AI-сервисов
+
+* Какие обязанности backend должен выполнять при интеграции LLM API?
+* Как токены, контекстное окно и лимит генерации влияют на запрос к LLM?
+* Как организовать потоковую выдачу LLM-ответа, отмену запроса и обработку ошибок?
+* Как устроены embeddings и почему нельзя смешивать векторы разных моделей?
+* Как подготовить документы, выбрать chunking и обновлять индекс RAG?
+* Как объединить векторный поиск, полнотекстовый поиск и reranking в RAG?
+* Как обеспечить изоляцию данных пользователей и защиту от prompt injection в RAG?
+* Как проверять структурированный ответ LLM и безопасно исполнять tool calls?
+* Когда выбирать внешний LLM API, а когда собственный model serving?
+* Как batching, KV cache и quantization влияют на serving языковой модели?
+* Как раздельно оценивать качество retrieval и генерации в RAG?
+* Как контролировать стоимость, квоты и повторные запросы к AI-сервисам?
 
 # AI: Основы работы с ИИ-агентами
 
@@ -1557,6 +3121,19 @@
 - Как писать описания приложений и Release Notes?
 - Как разработать Tone of Voice с учетом портрета целевой аудитории?
 - Что такое редакционная политика и зачем она нужна?
+
+# Product Engineering: продуктовые метрики, A/B-тестирование, аналитика и приоритизация
+
+* Как перевести продуктовую проблему в проверяемую гипотезу и инженерный результат?
+* Как связать North Star, input metrics и guardrails в продуктовой разработке?
+* Как спроектировать события аналитики, identity и проверку качества данных?
+* Как funnel analysis и cohort analysis помогают выбрать продуктовое изменение?
+* Как выбрать единицу рандомизации и исключить взаимное влияние вариантов A/B-теста?
+* Как до запуска A/B-теста определить primary metric, MDE, мощность и длительность?
+* Почему p-value и статистическая значимость не определяют ценность продуктового изменения?
+* Как sample ratio mismatch, peeking и множественные сравнения искажают A/B-тест?
+* Как принимать решение по эксперименту при разных результатах сегментов и guardrails?
+* Как использовать RICE, стоимость задержки и технические ограничения при приоритизации?
 
 # Design: Проектирование пользовательского опыта
 
