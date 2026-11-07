@@ -8,18 +8,18 @@
 6. Algorithms: Алгоритмы и структуры данных
 7. Apache Cassandra, ScyllaDB и DynamoDB
 8. Apache Kafka: Topics, Partitions, Consumer Groups и Stream Processing
-9. Architecture: C4 Model, ADR, технические решения и эволюция архитектуры
+9. Architecture: C4 model, ADR, решения и эволюция архитектуры
 10. Architecture: DDD, Bounded Context, Aggregates и Domain Events
 11. Architecture: Event-Driven Architecture, CQRS и Event Sourcing
 12. Architecture: Frontend - принципы и паттерны
 13. Architecture: Frontend System Design
 14. Architecture: FSD
 15. Architecture: Layered, Clean, Hexagonal, Onion и MVC
-16. Architecture: Saga Pattern, распределённые бизнес-процессы и согласованность
+16. Architecture: Saga, бизнес-процессы и согласованность
 17. Architecture: SOLID, GRASP, Repository, Unit of Work и другие паттерны
 18. Architecture: межсервисная коммуникация, API Gateway, BFF и Service Discovery
 19. Architecture: Модули, монорепозитории и микрофронтенды
-20. Architecture: монолит, модульный монолит, микросервисы и архитектурные компромиссы
+20. Architecture: монолиты, микросервисы и компромиссы
 21. Architecture: отказоустойчивость - Retry, Timeout, Circuit Breaker и Bulkhead
 22. AWS: EC2, ECS, EKS, Lambda, S3, RDS и основные сервисы
 23. Backend: API-контракты, OpenAPI, Swagger и документация
@@ -28,11 +28,11 @@
 26. Backend: Express, Fastify, NestJS и другие Node.js-фреймворки
 27. Backend: Go, Python, Java/Kotlin и C# - экосистемы и особенности
 28. Backend: GraphQL, gRPC и Protocol Buffers
-29. Backend: HTTP-сервер, жизненный цикл запроса, middleware и обработка ошибок
+29. Backend: HTTP-сервер, цикл запроса, middleware и ошибки
 30. Backend: ORM, Query Builders - Prisma, Drizzle, TypeORM и аналоги
-31. Backend: REST API - проектирование, версионирование, пагинация и фильтрация
+31. Backend: REST API, версии, пагинация и фильтрация
 32. Backend: Unit, Integration и E2E Testing
-33. Backend: идемпотентность, дедупликация, Outbox/Inbox и надёжная обработка событий
+33. Backend: идемпотентность, дедупликация и Outbox/Inbox
 34. Backend: интеграции, Webhooks и взаимодействие с внешними сервисами
 35. Backend: конфигурация, окружения, Feature Flags и мультитенантность
 36. Backend: работа с файлами, Streams и Object Storage
@@ -53,8 +53,8 @@
 51. Database: ACID, транзакции, MVCC, блокировки и уровни изоляции
 52. Database: SQL, NoSQL, партиционирование, шардинг и масштабирование
 53. Database: индексы, планы выполнения и оптимизация запросов
-54. Database: миграции, репликация, резервное копирование и восстановление
-55. Database: реляционная модель, связи, нормализация и проектирование схем
+54. Database: миграции, репликация, бэкапы и восстановление
+55. Database: реляционная модель, связи, нормализация и схемы
 56. Design: UX-архитектура и пользовательские сценарии
 57. Design: UX-исследования и тестирование
 58. Design: Гайдлайны
@@ -76,12 +76,12 @@
 74. DevOps: Secret Management, Vault, Supply Chain Security и SBOM
 75. DevOps: стратегии деплоя, Rolling, Blue-Green, Canary и Rollback
 76. Distributed Systems: CAP, PACELC и модели согласованности
-77. Distributed Systems: Consistent Hashing, распределение данных и координация
-78. Distributed Systems: распределённые транзакции, часы и порядок событий
+77. Distributed Systems: Consistent Hashing и координация
+78. Distributed Systems: транзакции, часы и порядок событий
 79. Distributed Systems: репликация, кворумы, Consensus, Raft и Paxos
 80. Docker: Compose, Networks, Volumes, Registry и работа с окружениями
 81. Docker: контейнеризация, архитектура, образы, Dockerfile и BuildKit
-82. Docker: оптимизация образов, безопасность и управление ресурсами
+82. Docker: оптимизация образов, безопасность и ресурсы
 83. Elasticsearch и OpenSearch
 84. Frontend: CI/CD, качество кода и деплой
 85. Frontend: SEO, PWA и Service Worker
@@ -120,7 +120,7 @@
 118. Live Coding: Frontend UI
 119. Live Coding: JS и TS
 120. Messaging: NATS, Redis Streams, BullMQ, AWS SQS и SNS
-121. Messaging: брокеры, очереди, Pub/Sub, гарантии доставки и обработка ошибок
+121. Messaging: брокеры, очереди, Pub/Sub, доставка и ошибки
 122. Microsoft SQL Server и Oracle Database
 123. MongoDB и Firestore
 124. MySQL и MariaDB
@@ -137,9 +137,9 @@
 135. Observability: Logs, Metrics, Traces и OpenTelemetry
 136. Observability: Prometheus, Grafana, Loki, ELK, Jaeger и Alerting
 137. Performance: Bottlenecks, Connection Pools, Rate Limiting и Backpressure
-138. Performance: профилирование, оптимизация и нагрузочное тестирование - k6, JMeter
+138. Performance: профилирование и нагрузочные тесты, k6 и JMeter
 139. PostgreSQL
-140. Product Engineering: продуктовые метрики, A/B-тестирование, аналитика и приоритизация
+140. Product Engineering: метрики, A/B-тесты и приоритизация
 141. RabbitMQ: архитектура, Exchanges, Queues, Routing и Consumers
 142. React: Redux и RTK
 143. React: RTK Query
@@ -164,17 +164,17 @@
 162. Security: аутентификация - Sessions, JWT, OAuth 2.0 и OpenID Connect
 163. Security: Аутентификация и авторизация в Web
 164. Security: шифрование, хеширование, управление ключами и Secrets
-165. Software Engineering: технический долг, Code Review, документация и владение сервисами
+165. Software Engineering: техдолг, Code Review и Ownership
 166. SQL: запросы, JOIN, CTE, подзапросы и оконные функции
 167. SQLite
 168. System Design: High Availability, геораспределение, CDN и Edge
-169. System Design: вертикальное и горизонтальное масштабирование, Load Balancing
+169. System Design: масштабирование и Load Balancing
 170. System Design: оценка RPS, QPS, Latency, Throughput и объёмов данных
 171. System Design: проектирование URL Shortener, Key-Value Store и Rate Limiter
-172. System Design: проектирование платежей, заказов, бронирования и инвентаризации
-173. System Design: проектирование файловых хранилищ, поиска и обработки медиа
-174. System Design: проектирование чатов, уведомлений, лент и Real-time-систем
-175. System Design: требования, ограничения, компромиссы и методология проектирования
+172. System Design: платежи, заказы, бронирование и инвентаризация
+173. System Design: файловые хранилища, поиск и медиа
+174. System Design: чаты, уведомления, ленты и Real-time
+175. System Design: требования, компромиссы и методология
 176. TimescaleDB
 177. TS
 178. Vector Databases - pgvector, Qdrant, Milvus и Weaviate
